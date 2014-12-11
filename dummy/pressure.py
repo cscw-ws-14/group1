@@ -14,8 +14,8 @@ def out(msg):
 def main(): 
     while(True): 
         randV = randrange(10000, 100000)
-        t = time.time()
-        bro = ({'v':randV,'u':"Pa"})
+        t = int(time.time())
+        bro = ({'v':randV,'u':"Pa",'n':"http://cscw-bplus-04/bmp180/pressure"})
         ret = {'bt':t, 'e':bro}
          
         jsondump = json.dumps(ret) 

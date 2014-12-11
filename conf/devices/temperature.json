@@ -1,16 +1,16 @@
 {
   "name": "Bar",
-  "description": "Pressure quality dummy agent",
+  "description": "temperature dummy agent",
   "meta": {"any":"key", "kind":"dummy"},
   "ttl": 30,
   "resources": [
     {
       "type": "Resource",
-      "name": "Pressure", 
+      "name": "Temp", 
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/pressure.py"
+        "exec": "python dummy/temperature.py"
       },
       "representation": {
         "application/json": {
