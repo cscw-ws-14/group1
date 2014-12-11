@@ -1,2 +1,4 @@
 src/github.com/patchwork-toolkit/patchwork
 src/github.com/patchwork-toolkit/patchwork/*
+static/dashboard
+static/dashboard/*
