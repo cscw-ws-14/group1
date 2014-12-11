@@ -1,21 +1,20 @@
 {
-  "name": "DummyDevice",
-  "description": "Just a test of DGW",
+  "name": "Pressure",
+  "description": "Pressure quality dummy agent",
   "meta": {"any":"key", "kind":"dummy"},
   "ttl": 30,
   "resources": [
     {
       "type": "Resource",
-      "name": "RandomStream",
-      "meta": {},
+      "name": "Pressure", 
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "while true; do echo $RANDOM; sleep 3; done"
+        "exec": "python dummy/pressure.py"
       },
       "representation": {
-        "text/plain": {
-          "type": "number"
+        "application/json": {
+          "type": "object"
         }
       },
       "protocols": [
@@ -25,8 +24,15 @@
             "GET"
           ],
           "content-types": [
-            "text/plain"
+            "application/json"
           ]
+        },
+		{
+            "type": "MQTT", 
+            "methods": [ 
+                "SUB"
+            ],
+            "content-types": ["application/json"]
         }
       ]
     }
