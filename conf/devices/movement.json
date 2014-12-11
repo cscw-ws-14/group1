@@ -1,0 +1,40 @@
+{
+  "name": "Motion",
+  "description": "Motion dummy agent",
+  "meta": {"any":"key", "kind":"dummy"},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "Pir", 
+      "agent": {
+        "type": "service",
+        "dir": null,
+        "exec": "python dummy/movement.py"
+      },
+      "representation": {
+        "application/json": {
+          "type": "object"
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        },
+		{
+            "type": "MQTT", 
+            "methods": [ 
+                "SUB"
+            ],
+            "content-types": ["application/json"]
+        }
+      ]
+    }
+  ]
+}
