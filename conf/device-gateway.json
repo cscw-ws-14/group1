@@ -1,0 +1,26 @@
+{
+  "id": "le",
+  "description": "Example Gateway",
+  "dnssdEnabled": false,
+  "publicAddr": "localhost",
+  "staticDir": "./static",
+  "catalog": [
+    {
+      "discover": false,
+      "endpoint": "http://localhost:8080/dc"
+    }
+  ],
+  "http": {
+    "bindAddr": "0.0.0.0",
+    "bindPort": 8080
+  },
+  "protocols": {
+    "REST": {
+      "location": "/rest"
+    },
+    "MQTT": {
+      "url": "tcp://127.0.0.1:1883",
+      "prefix": "/le"
+    }
+  }
+}
