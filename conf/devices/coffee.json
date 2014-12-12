@@ -1,0 +1,33 @@
+{
+  "name": "Coffee",
+  "description": "coffee server dummy agent",
+  "meta": {"any":"key", "kind":"dummy"},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "Intake", 
+      "agent": {
+        "type": "service",
+        "dir": null,
+        "exec": "python dummy/coffee.py"
+      },
+      "representation": {
+        "application/json": {
+          "type": "object"
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}
