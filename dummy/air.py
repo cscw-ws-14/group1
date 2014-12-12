@@ -11,13 +11,13 @@ def out(msg):
   
 def main():
     while(True):
-        v = randrange(1000)
+        v = randrange(1,2500)
         t = int(time.time())
         ret = "{\"e\":[{\"n\":\"IAQ\",\"v\":%d,\"u\":\"VOC\",\"t\":%d}]}" % (v,t)
 
         out(ret)
         sys.stdout.flush()
-        time.sleep(3)
+        time.sleep(0.5)
 
 if __name__ == '__main__':
     try:
