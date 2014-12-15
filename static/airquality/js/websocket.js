@@ -34,6 +34,17 @@ var App = {
 
         var data = JSON.parse(event.data);
   
+        switch(data.type){
+		case 'airquality':
+			App.OnAirQuality(data);
+			break;
+		case 'coffee':
+			App.OnCoffee(data);
+			break;
+        }
+	}, 
+	
+	OnAirQuality: function(data){
         // change led to this level
 		var led = $('#led');
 		led.css("background-image", "url(images/lvl_" + data.level + ".png)");
@@ -66,7 +77,13 @@ var App = {
 		else{
 			window_.css("background-image", "url(images/window_deactive.png)"); 
 		}
-	}, 
+	},
+	
+	OnCoffee: function(data){
+        // change bg to this coffee level
+		var led = $('#coffee');
+		led.css("background-image", "url(images/coffee_" + data.level + ".png)"); 
+	},
 	
 	PlaySound: function(){
 		return;

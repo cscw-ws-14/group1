@@ -146,3 +146,12 @@ body {
 	top: -14px;
 	left: 2px;
 }
+
+.coffee{
+	position: relative;
+	width: 128px;
+	height: 128px;
+	background-image: url(../images/coffee_0.png); 
+	background-size: 128px 128px;
+	float:left;
+}
