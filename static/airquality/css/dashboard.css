@@ -88,7 +88,6 @@ body {
 /*
  * Placeholder dashboard ideas
  */
-
 .placeholders {
   margin-bottom: 30px;
   text-align: center;
@@ -102,4 +101,48 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+.led_bg{
+	position: relative;
+	width: 22px;
+	height: 153px;
+	background-image: url(../images/lvl_0.png);
+	float:left;
+}
+.led{
+	position: relative;
+	width: 22px;
+	height: 153px;
+	background-image: url(../images/lvl_0.png);
+	float:left;
+	left:-22px;
+}
+
+.window{
+	position: relative;
+	width: 54px;
+	height: 54px;
+	background-image: url(../images/window_deactive.png);
+	float:left;
+	top:80px;
+	left:-54px;
+}
+
+.door{
+	position: relative;
+	width: 54px;
+	height: 55px;
+	background-image: url(../images/door_deactive.png);
+	float:left;
+	top:10px;
+}
+
+.speaker{
+	position: relative;
+	width: 19px;
+	height: 19px;
+	background-image: url(../images/speaker_deactive.png); 
+	top: -14px;
+	left: 2px;
 }

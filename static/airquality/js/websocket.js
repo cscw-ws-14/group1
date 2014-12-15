@@ -35,18 +35,44 @@ var App = {
         var data = JSON.parse(event.data);
   
         // change led to this level
-		document.getElementById("led").css(data.level);
-		
+		var led = $('#led');
+		led.css("background-image", "url(images/lvl_" + data.level + ".png)");
+		 
 		// play beep
-		if(data.beep)
+		if(data.beep){
 			App.PlaySound();
+			$('#speaker').css("background-image", "url(images/speaker_active.png)");
+			
+			// set time out on the next 1 second to turn the image off
+			window.setTimeout(function(){
+				$('#speaker').css("background-image", "url(images/speaker_deactive.png)");
+			}, 1000);
+		}
 			
 		// change door css images
-		document.getElementById("door").css(data.door);
+		var door = $('#door');
+		if(data.door){
+			door.css("background-image", "url(images/door_active.png)");
+		}
+		else{
+			door.css("background-image", "url(images/door_deactive.png)");
+		}
 		
 		// change window css images
-		document.getElementById("window").css(data.window); 
+		var window_ = $('#window');
+		if(data.window){
+			window_.css("background-image", "url(images/window_active.png)");
+		}
+		else{
+			window_.css("background-image", "url(images/window_deactive.png)"); 
+		}
 	}, 
+	
+	PlaySound: function(){
+		return;
+		var audio = new Audio('images/beep.mp3');
+		audio.play(); 
+	},
 	
 	OnClose: function(){
 		console.log("disconnected to server");		
