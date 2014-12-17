@@ -26,7 +26,7 @@ import com.jpmorrsn.fbp.engine.Packet;
 @ComponentDescription("Finds the median from the input of size of SIZE. (Gets SIZE-times values from IN, and"
 		+ "then finds Median).")
 @OutPorts({ @OutPort(value = "OUT") })
-@InPorts({ @InPort(value = "IN", type = Integer.class), @InPort(value = "SIZE", type = Integer.class)})
+@InPorts({ @InPort(value = "IN"), @InPort(value = "SIZE")})
 public class MedianFilter extends Component {
 
 	static final String copyright = " ";
@@ -49,14 +49,14 @@ public class MedianFilter extends Component {
 		if(firstTime){
 			
 			ip = inportSize.receive();
-			size = (Integer)ip.getContent();
+			size = Integer.parseInt((String)ip.getContent());
 			drop(ip);
 			
 			firstTime = false;
 		}
 		
 		ip = inportIN.receive();
-		values.add((Integer)ip.getContent());
+		values.add(Integer.parseInt((String)ip.getContent()));
 		drop(ip);
 	
 		counter++;
