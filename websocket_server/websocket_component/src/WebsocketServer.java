@@ -6,6 +6,17 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Collection;
 
+/**
+ * webscocket server class,
+ * it is a singleton class,
+ *
+ * initiate or get the instance using getInstance([port number])
+ * limitation: there is no such a thing as "sub/channel/subfolder" using this library
+ *
+ * this class will open a port and keep listening into that port until the program get killed
+ * this class can not receive message
+ */
+
 public class WebsocketServer extends WebSocketServer {
 
     private static WebsocketServer instance = null;
@@ -16,7 +27,7 @@ public class WebsocketServer extends WebSocketServer {
         return WebsocketServer.getInstance();
     }
 
-    public static WebsocketServer getInstance() {
+    protected static WebsocketServer getInstance() {
         if(instance == null) {
             try {
                 instance = new WebsocketServer(WebsocketServer.port);

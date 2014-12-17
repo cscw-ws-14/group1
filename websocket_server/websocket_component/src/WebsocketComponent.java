@@ -1,5 +1,10 @@
 import com.jpmorrsn.fbp.engine.*;
 
+/**
+ * need WebsocketServer.java (the wrapper of the websocket server)
+ *
+ * need java_websocket.jar -> use it as library
+ */
 
 @ComponentDescription("publish a message to the websocket server")
 
