@@ -17,5 +17,7 @@ use browser to http://localhost:8080/static/dashboard
 
 ------
 To run the coffee DB server,
+
 $ cd coffee
+
 $ sudo node cscw_final_server_red.js
