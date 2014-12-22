@@ -10,7 +10,7 @@
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/coffee.py"
+        "exec": "python agents/coffee.py"
       },
       "representation": {
         "application/json": {

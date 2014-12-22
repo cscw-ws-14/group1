@@ -10,7 +10,7 @@
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/air.py"
+        "exec": "python agents/air.py"
       },
       "representation": {
         "application/json": {
