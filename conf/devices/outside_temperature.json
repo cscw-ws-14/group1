@@ -1,0 +1,40 @@
+{
+  "name": "Bar",
+  "description": "outside temperature agent from openweather map",
+  "meta": {"any":"key", "kind":"dummy"},
+  "ttl": 60,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "Temp", 
+      "agent": {
+        "type": "service",
+        "dir": null,
+        "exec": "python agents/outside_temperature.py Bonn Germany"
+      },
+      "representation": {
+        "application/json": {
+          "type": "object"
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        },
+		{
+            "type": "MQTT", 
+            "methods": [ 
+                "SUB"
+            ],
+            "content-types": ["application/json"]
+        }
+      ]
+    }
+  ]
+}
