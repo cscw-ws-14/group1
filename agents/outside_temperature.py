@@ -2,7 +2,10 @@
 import time
 import sys
 import json
-import urllib2
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
 def log(msg):
     sys.stderr.write("[%s]: %s\n" % (__file__, msg))
@@ -24,6 +27,7 @@ def main():
         
         resp = urllib2.urlopen(url)
         str_result = resp.read()
+        str_result = str_result.decode("utf-8")
         try: 
             decoded = json.loads(str_result) 
             cache_temperature = decoded['main']['temp']
@@ -35,7 +39,7 @@ def main():
             
         out(ret)
         sys.stdout.flush()
-        time.sleep(60)
+        time.sleep(1)
 
 if __name__ == '__main__':
     try:
