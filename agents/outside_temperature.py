@@ -15,10 +15,12 @@ def out(msg):
   
 def main(): 
     if len(sys.argv) < 3:
-        raise Exception("please put city and the country")
-        
-    city = sys.argv[1]
-    country = sys.argv[2]
+        #raise Exception("please put city and the country")
+        city = "bonn"
+        country = "germany"
+    else:
+        city = sys.argv[1]
+        country = sys.argv[2]
     url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country + "&units=metric"
     cache_temperature = 0
     

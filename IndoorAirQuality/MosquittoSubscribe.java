@@ -67,7 +67,7 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
                 sampleClient.connect(connOpts);
                 sampleClient.setCallback(this);
                 sampleClient.subscribe(_topic);
-                sleep(10000);
+                sleep(100000);
                 sampleClient.disconnect();
                 sampleClient.close();
 

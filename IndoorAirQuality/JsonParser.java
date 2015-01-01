@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.logging.ErrorManager;
 
 import jdk.nashorn.internal.parser.JSONParser;
@@ -73,12 +74,16 @@ public class JsonParser extends Component {
 		    }
 		                        
 		  };
-		                
+		   
+		  Map json = null;
+		  Iterator iter = null;
+		  Map.Entry entry = null;
+		  LinkedList firstEnt = null;
 		  try{
-		    Map json = (Map)parser.parse(jsonStr, containerFactory);
-		    Iterator iter = json.entrySet().iterator();
-		    Map.Entry entry = (Map.Entry)iter.next();
-		    LinkedList firstEnt = (LinkedList)entry.getValue();
+		    json = (Map)parser.parse(jsonStr, containerFactory);
+		    iter = json.entrySet().iterator();
+		    entry = (Map.Entry)iter.next();
+		    firstEnt = (LinkedList)entry.getValue();
 		    Packet out;		    
 		    int numberOfValue = outportValue.length;
 		    for(int i = 0; i<numberOfValue; ++i){
@@ -89,7 +94,22 @@ public class JsonParser extends Component {
 		    
 		  }
 		  catch(ParseException pe){
-		    System.out.println(pe);
+			jsonStr = jsonStr.replaceAll("\\{", "").replaceAll("\\}", "").replaceAll("\\,", "").replaceAll("\\ ", "");
+			StringTokenizer jsonTokenizer = new StringTokenizer(jsonStr, "':");
+			int j = 0;
+			Packet out;
+			while(jsonTokenizer.hasMoreTokens()){
+				String element = jsonTokenizer.nextToken();
+				for(int i = 0;i<numberOfKeys;++i){
+					if(element.equals(keyStr.get(i))){
+						out = create(jsonTokenizer.nextToken());
+						outportValue[j++].send(out);
+						break;
+					}
+				}
+				
+			}
+//		    System.out.println(pe);
 		  }		
 	}
 

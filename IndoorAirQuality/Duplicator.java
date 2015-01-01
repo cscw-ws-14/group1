@@ -37,7 +37,7 @@ public class Duplicator extends Component {
     Packet out;
     System.out.println(Integer.parseInt((String)p.getContent()));
     for(int i = 0; i < no; ++i){
-    	out = create(p.getContent());
+    	out = create(p.getContent()+"");
     	outportArray[i].send(out);
     }
     drop(p);
