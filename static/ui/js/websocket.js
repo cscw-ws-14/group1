@@ -41,6 +41,9 @@ var App = {
 		case 'coffee':
 			App.OnCoffee(data);
 			break;
+		case 'movement':
+			App.OnMovement(data);
+			break;
         }
 	}, 
 	
@@ -84,9 +87,14 @@ var App = {
 		var led = $('#coffee');
 		led.css("background-image", "url(images/coffee_" + data.level + ".png)"); 
 	},
+	 
+	OnMovement: function(data){
+		// display the notification
+		$('#movement #notification').html("No movement detected for 2 hours."); 
+		$('#movement #dialog').css("display", "block"); 
+	},
 	
-	PlaySound: function(){
-		return;
+	PlaySound: function(){ 
 		var audio = new Audio('images/beep.mp3');
 		audio.play(); 
 	},
@@ -99,6 +107,10 @@ var App = {
 		if(this.WebSocketBrowserCheck){
 			this.OpenWebSocket();			
 		}
-	}	
+	},
+	
+	RunKinectApp: function(){
+		alert("running kinect app")
+	}
 }
  
