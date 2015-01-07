@@ -4,3 +4,4 @@ static/dashboard
 static/dashboard/*
 pkg
 pkg/*
+websocket_server/out/production/websocket_component/*.class
