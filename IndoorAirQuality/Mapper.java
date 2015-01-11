@@ -21,7 +21,7 @@ import com.jpmorrsn.fbp.engine.OutputPort;
 import com.jpmorrsn.fbp.engine.Packet;
 
 @ComponentDescription("Maps the values from IN, to a certain group number.")
-@OutPorts({ @OutPort(value = "OUT", type = Integer.class) })
+@OutPorts({ @OutPort(value = "OUT") })
 @InPorts({ @InPort(value = "IN") })
 public class Mapper extends Component {
 
@@ -45,25 +45,25 @@ public class Mapper extends Component {
 		Packet out;
 
 		if (value < 500) {
-			out = create(0);
+			out = create("level:0");
 		} else if (value < 750) {
-			out = create(1);
+			out = create("level:1");
 		} else if (value < 1000) {
-			out = create(2);
+			out = create("level:2");
 		} else if (value < 1150) {
-			out = create(3);
+			out = create("level:3");
 		} else if (value < 1300) {
-			out = create(4);
+			out = create("level:4");
 		} else if (value < 1500) {
-			out = create(5);
+			out = create("level:5");
 		} else if (value < 1700) {
-			out = create(6);
+			out = create("level:6");
 		} else if (value < 1900) {
-			out = create(7);
+			out = create("level:7");
 		} else if (value < 2200) {
-			out = create(8);
+			out = create("level:8");
 		} else {
-			out = create(9);
+			out = create("level:9");
 		}
 		outport.send(out);
 	}

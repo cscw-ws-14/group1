@@ -26,11 +26,10 @@ def main():
     
     while(True):   
         t = int(time.time())
-        
-        resp = urllib2.urlopen(url)
-        str_result = resp.read()
-        str_result = str_result.decode("utf-8")
         try: 
+            resp = urllib2.urlopen(url)
+            str_result = resp.read()
+            str_result = str_result.decode("utf-8")
             decoded = json.loads(str_result) 
             cache_temperature = decoded['main']['temp']
              
@@ -41,7 +40,7 @@ def main():
             
         out(ret)
         sys.stdout.flush()
-        time.sleep(1)
+        time.sleep(0.5)
 
 if __name__ == '__main__':
     try:

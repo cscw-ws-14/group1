@@ -71,27 +71,27 @@ public class ActionSuggester extends Component {
 			diff = voc - threshold;
 			if(diff > 1000){
 				
-				out = create("open window");
+				out = create("window:true");
 				outportDoor.send(out);
 				
-				out = create("open door");
+				out = create("door:true");
 				outportWindow.send(out);
 				
 			} else if(temperator < 10){
 				
-				out = create("open door");
+				out = create("door:true");
 				outportDoor.send(out);
 				
 			} else {
-				out = create("open window");
+				out = create("window:true");
 				outportWindow.send(out);
 			}
 		}
 		else {
-			out = create("close door");
+			out = create("door:false");
 			outportDoor.send(out);
 			
-			out = create("close window");
+			out = create("window:false");
 			outportWindow.send(out);
 		}
 		

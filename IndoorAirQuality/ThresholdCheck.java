@@ -57,12 +57,17 @@ public class ThresholdCheck extends Component {
 		if(value >= threshold && !alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("Beep");
+			out = create("beep:true");
 			outport.send(out);
 			
 			alreadyOverThreshold = true;
 		}
 		if(value < threshold && alreadyOverThreshold) {
+			Packet out;
+			
+			out = create("beep:false");
+			outport.send(out);
+			
 			alreadyOverThreshold = false;
 		}
 	}
