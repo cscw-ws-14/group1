@@ -32,9 +32,9 @@ component("JsonParser2", JsonParser.class);
 component("ActionSuggester", ActionSuggester.class);
 	 
 //component("WSTester", WebSocketTester.class);
-//component("WS", WebSocketComponents.WebsocketComponent.class);
+component("WS", WebSocketComponents.WebsocketComponent.class);
 //component("AllInformationJsonify", AllInformationJsonify.class);
-component("Console", WriteToConsole.class);
+//component("Console", WriteToConsole.class);
 
 initialize("5", component("MedianFilter"), port("SIZE"));
 initialize(1500, component("ThresholdCheck"), port("THRESHOLD"));
@@ -58,7 +58,7 @@ connect(component("Mapper"), port("OUT"), component("ActionSuggester"), port("IN
 //connect(component("ActionSuggester"), port("STATE"), component("AllInformationJsonify"), port("IN[2]"));
 //connect(component("ActionSuggester"), port("VOC"), component("AllInformationJsonify"), port("IN[3]"));
 	 
-connect(component("ActionSuggester"), port("OUT"), component("Console"), port("IN"));
+connect(component("ActionSuggester"), port("OUT"), component("WS"), port("MESSAGE"));
 //connect(component("WSTester"), port("OUT"), component("Console"), port("IN"));
  } 
 public static void main(String[] argv) throws Exception  { 
