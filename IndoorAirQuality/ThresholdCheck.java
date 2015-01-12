@@ -21,7 +21,7 @@ import com.jpmorrsn.fbp.engine.OutputPort;
 import com.jpmorrsn.fbp.engine.Packet;
 
 @ComponentDescription("Checks if the value from IN, exceeds given THRESHOLD.")
-@OutPorts({ @OutPort(value = "OUT") })
+@OutPorts({ @OutPort(value = "OUT")  })
 @InPorts({ @InPort(value = "IN"), @InPort(value = "THRESHOLD", type = Integer.class)})
 public class ThresholdCheck extends Component {
 
@@ -57,7 +57,7 @@ public class ThresholdCheck extends Component {
 		if(value >= threshold && !alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("beep:true");
+			out = create("beep:true,VOC:"+value);
 			outport.send(out);
 			
 			alreadyOverThreshold = true;
@@ -65,11 +65,13 @@ public class ThresholdCheck extends Component {
 		if(value < threshold && alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("beep:false");
+			out = create("beep:false,VOC:"+value);
 			outport.send(out);
 			
 			alreadyOverThreshold = false;
 		}
+		
+	
 	}
 
 	@Override
@@ -79,7 +81,7 @@ public class ThresholdCheck extends Component {
 		inportThreshold = openInput("THRESHOLD");
 		
 		outport = openOutput("OUT");
-
+		
 	}
 
 }

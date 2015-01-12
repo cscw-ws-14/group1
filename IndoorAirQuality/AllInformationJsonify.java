@@ -26,7 +26,7 @@ import com.jpmorrsn.fbp.engine.Packet;
 
 @ComponentDescription("Gathers all the information, and whenever there are changes, it sends information forward to be shown.")
 @OutPorts({ @OutPort(value = "OUT")})
-@InPorts({ @InPort(value = "IN", arrayPort = true, optional = true)})
+@InPorts({ @InPort(value = "IN", arrayPort = true)})
 public class AllInformationJsonify extends Component {
 
 	static final String copyright = " ";
@@ -48,25 +48,29 @@ public class AllInformationJsonify extends Component {
 			dataMap.put("level", "0");
 			dataMap.put("door", "false");
 			dataMap.put("window", "false");
+			dataMap.put("VOC", "0");
 		}
 				
 		Packet ip;
 
 		String data, key, value;
 		StringTokenizer dataTokenizer;
-		
+		StringTokenizer elementTokenizer;
 		int length = inportIn.length;
 		for(int i = 0; i<length; ++i){
 			ip = inportIn[i].receive();
 			if(ip!=null){
 				data = (String)ip.getContent();
 				drop(ip);
-				
-				dataTokenizer = new StringTokenizer(data,":");
-				key = dataTokenizer.nextToken();
-				value = dataTokenizer.nextToken();
-				
-				dataMap.put(key, value);
+				dataTokenizer = new StringTokenizer(data, ",");
+				while(dataTokenizer.hasMoreTokens()){
+					
+					elementTokenizer = new StringTokenizer(dataTokenizer.nextToken(),":");
+					key = elementTokenizer.nextToken();
+					value = elementTokenizer.nextToken();
+					
+					dataMap.put(key, value);
+				}
 			}
 		}
 		
@@ -77,7 +81,7 @@ public class AllInformationJsonify extends Component {
 			JsonStr = JsonStr + datakey + ":" + dataMap.get(datakey) + ","; 
 		}
 		JsonStr = JsonStr.substring(0, JsonStr.length()-1)+"}";
-		
+//		System.out.println(JsonStr);
 		Packet out;
 		out = create(JsonStr);
 		outportOut.send(out);

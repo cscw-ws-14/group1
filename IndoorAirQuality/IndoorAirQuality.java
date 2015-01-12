@@ -20,7 +20,7 @@ String description = " ";
  protected void define() { 
  
 component("MedianFilter", MedianFilter.class);
-component("Duplicator", Duplicator.class);
+//component("Duplicator", Duplicator.class);
 component("ThresholdCheck", ThresholdCheck.class);
 //component("SpeakerActuator", SpeakerActuator.class);
 component("Mapper", Mapper.class);
@@ -33,7 +33,7 @@ component("ActionSuggester", ActionSuggester.class);
 	 
 //component("WSTester", WebSocketTester.class);
 //component("WS", WebSocketComponents.WebsocketComponent.class);
-component("AllInformationJsonify", AllInformationJsonify.class);
+//component("AllInformationJsonify", AllInformationJsonify.class);
 component("Console", WriteToConsole.class);
 
 initialize("5", component("MedianFilter"), port("SIZE"));
@@ -48,17 +48,17 @@ initialize("1500", component("ActionSuggester"), port("THRESHOLD"));
 connect(component("MosquittoSubscriber"), port("MESSAGE"), component("JsonParser"), port("JSON"));
 connect(component("MosquittoSubscriber2"), port("MESSAGE"), component("JsonParser2"), port("JSON"));
 connect(component("JsonParser"), port("VALUE[0]"), component("MedianFilter"), port("IN"));
-connect(component("MedianFilter"), port("OUT"), component("Duplicator"), port("IN"));
-connect(component("Duplicator"), port("OUT[0]"), component("ThresholdCheck"), port("IN"));
-connect(component("ThresholdCheck"), port("OUT"), component("AllInformationJsonify"), port("IN[0]"));
-connect(component("Duplicator"), port("OUT[1]"), component("Mapper"), port("IN"));
-connect(component("Mapper"), port("OUT"), component("AllInformationJsonify"), port("IN[1]"));
+//connect(component("MedianFilter"), port("OUT"), component("Duplicator"), port("IN"));
+connect(component("MedianFilter"), port("OUT"), component("ThresholdCheck"), port("IN"));
+//connect(component("ThresholdCheck"), port("OUT"), component("AllInformationJsonify"), port("IN[0]"));
+connect(component("ThresholdCheck"), port("OUT"), component("Mapper"), port("IN"));
+//connect(component("Mapper"), port("OUT"), component("AllInformationJsonify"), port("IN[1]"));
 connect(component("JsonParser2"), port("VALUE[0]"), component("ActionSuggester"), port("TEMPERATURE"));
-connect(component("Duplicator"), port("OUT[2]"), component("ActionSuggester"), port("VOC"));
-connect(component("ActionSuggester"), port("DOORSTATE"), component("AllInformationJsonify"), port("IN[2]"));
-connect(component("ActionSuggester"), port("WINDOWSTATE"), component("AllInformationJsonify"), port("IN[3]"));
+connect(component("Mapper"), port("OUT"), component("ActionSuggester"), port("IN"));
+//connect(component("ActionSuggester"), port("STATE"), component("AllInformationJsonify"), port("IN[2]"));
+//connect(component("ActionSuggester"), port("VOC"), component("AllInformationJsonify"), port("IN[3]"));
 	 
-connect(component("AllInformationJsonify"), port("OUT"), component("Console"), port("IN"));
+connect(component("ActionSuggester"), port("OUT"), component("Console"), port("IN"));
 //connect(component("WSTester"), port("OUT"), component("Console"), port("IN"));
  } 
 public static void main(String[] argv) throws Exception  { 

@@ -7,9 +7,11 @@
  */
 package IndoorAirQuality;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.RandomAccess;
+import java.util.StringTokenizer;
 
 import com.jpmorrsn.fbp.engine.Component;
 import com.jpmorrsn.fbp.engine.ComponentDescription;
@@ -22,18 +24,17 @@ import com.jpmorrsn.fbp.engine.OutputPort;
 import com.jpmorrsn.fbp.engine.Packet;
 
 @ComponentDescription("Simulates air sensor. Sends out VOC")
-@OutPorts({ @OutPort(value = "DOORSTATE", optional = true),
-			@OutPort(value = "WINDOWSTATE", optional = true) })
-@InPorts({ @InPort(value = "VOC"),
-		   @InPort(value = "TEMPERATURE", optional = true),
-		   @InPort(value = "THRESHOLD", optional = true)})
+@OutPorts({ @OutPort(value = "OUT") })
+@InPorts({ @InPort(value = "IN"),
+		   @InPort(value = "TEMPERATURE"),
+		   @InPort(value = "THRESHOLD")})
 public class ActionSuggester extends Component {
 
 	static final String copyright = " ";
 
-	private OutputPort outportDoor, outportWindow;
+	private OutputPort outportState;
 
-	private InputPort inportVoc, inportTemp, inportThreshold;
+	private InputPort inportIn, inportTemp, inportThreshold;
 	
 	
 	private int threshold, voc;
@@ -60,42 +61,57 @@ public class ActionSuggester extends Component {
 			temperator =  Float.parseFloat((String)ip.getContent());
 			drop(ip);
 		}
-		ip = inportVoc.receive();
-		if(ip!=null){
-			voc = Integer.parseInt((String)ip.getContent());
-			drop(ip);
-		}
+		ip = inportIn.receive();
+		String info = (String)ip.getContent();
+		voc = extractValue(info);
+		drop(ip);
+		
+		info = removeVOCAddTimeStamp(info);
 		Packet out;
 		int diff;
 		if(voc >= threshold){
 			diff = voc - threshold;
 			if(diff > 1000){
 				
-				out = create("window:true");
-				outportDoor.send(out);
-				
-				out = create("door:true");
-				outportWindow.send(out);
+				out = create("{"+info+",door:true,window:true}");
+				outportState.send(out);
+
 				
 			} else if(temperator < 10){
 				
-				out = create("door:true");
-				outportDoor.send(out);
+				out = create("{"+info+",door:true,window:false}");
+				outportState.send(out);
 				
 			} else {
-				out = create("window:true");
-				outportWindow.send(out);
+				out = create("{"+info+",door:false,window:true}");
+				outportState.send(out);
 			}
 		}
 		else {
-			out = create("door:false");
-			outportDoor.send(out);
+			out = create("{"+info+",door:false,window:false}");
+			outportState.send(out);
 			
-			out = create("window:false");
-			outportWindow.send(out);
 		}
 		
-	
+	}
+
+
+	private String removeVOCAddTimeStamp(String info) {
+		StringTokenizer infoTokenizer = new StringTokenizer(info,",");
+		StringTokenizer elementTokenizer;
+		String result="";
+		String key;
+		while(infoTokenizer.hasMoreTokens()){
+			elementTokenizer = new StringTokenizer(infoTokenizer.nextToken(),":");
+			key = elementTokenizer.nextToken();
+			if(!key.equals("VOC")){
+				result=result+key+":"+elementTokenizer.nextToken()+",";
+			}
+				
+		}
+		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+		result = "timestamp:"+timeStamp.toString()+","+result;
+		return result.substring(0, result.length()-1);
 	}
 
 
@@ -104,11 +120,20 @@ public class ActionSuggester extends Component {
 
 		inportTemp = openInput("TEMPERATURE");
 		inportThreshold = openInput("THRESHOLD");
-		inportVoc = openInput("VOC");
+		inportIn = openInput("IN");
 
-		outportDoor = openOutput("DOORSTATE");
-		outportWindow = openOutput("WINDOWSTATE");
+		outportState = openOutput("OUT");
+		
 
 	}
-
+	private int extractValue(String info) {
+		StringTokenizer infoTokenizer = new StringTokenizer(info,",");
+		StringTokenizer elementTokenizer;
+		while(infoTokenizer.hasMoreTokens()){
+			elementTokenizer = new StringTokenizer(infoTokenizer.nextToken(),":");
+			if(elementTokenizer.nextToken().equals("VOC"))
+				return Integer.parseInt(elementTokenizer.nextToken());
+		}
+		return 0;
+	}
 }
