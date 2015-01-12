@@ -11,7 +11,7 @@ def log(msg):
     sys.stderr.write("[%s]: %s\n" % (__file__, msg))
 
 def out(msg): 
-    sys.stdout.write("%s\n" % msg)
+    sys.stdout.write("%s\n" % json.dumps(msg))
   
 def main(): 
     if len(sys.argv) < 3:
@@ -33,10 +33,10 @@ def main():
             decoded = json.loads(str_result) 
             cache_temperature = decoded['main']['temp']
              
-            bro = ({'v':cache_temperature,'u':"degC"})
-            ret = {'bt':t, 'e':bro} 
+            bro = {"v":cache_temperature,"u":"degC"}
+            ret = {"bt":t, "e":bro} 
         except ValueError:
-            ret = {'bt':t, 'e':'error'}
+            ret = {"bt":t, "e":"error"}
             
         out(ret)
         sys.stdout.flush()
