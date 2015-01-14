@@ -1,7 +1,7 @@
 
 var App = {
 	url: "ws://localhost:8887/",
-	channel: "airquality", 
+	channel: "", 
 	ws: null,
   
 	//{timestamp:1, beep:true, level:1, door:true, window:true} 
