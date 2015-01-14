@@ -47,25 +47,25 @@ public class Mapper extends Component {
 		Packet out;
 
 		if (value < 500) {
-			out = create(info+",level:0");
+			out = create(info+",\"level\":0");
 		} else if (value < 750) {
-			out = create(info+",level:1");
+			out = create(info+",\"level\":1");
 		} else if (value < 1000) {
-			out = create(info+",level:2");
+			out = create(info+",\"level\":2");
 		} else if (value < 1150) {
-			out = create(info+",level:3");
+			out = create(info+",\"level\":3");
 		} else if (value < 1300) {
-			out = create(info+",level:4");
+			out = create(info+",\"level\":4");
 		} else if (value < 1500) {
-			out = create(info+",level:5");
+			out = create(info+",\"level\":5");
 		} else if (value < 1700) {
-			out = create(info+",level:6");
+			out = create(info+",\"level\":6");
 		} else if (value < 1900) {
-			out = create(info+",level:7");
+			out = create(info+",\"level\":7");
 		} else if (value < 2200) {
-			out = create(info+",level:8");
+			out = create(info+",\"level\":8");
 		} else {
-			out = create(info+",level:9");
+			out = create(info+",\"level\":9");
 		}
 		outport.send(out);
 		
@@ -76,7 +76,7 @@ public class Mapper extends Component {
 		StringTokenizer elementTokenizer;
 		while(infoTokenizer.hasMoreTokens()){
 			elementTokenizer = new StringTokenizer(infoTokenizer.nextToken(),":");
-			if(elementTokenizer.nextToken().equals("VOC"))
+			if(elementTokenizer.nextToken().equals("\"VOC\""))
 				return Integer.parseInt(elementTokenizer.nextToken());
 		}
 		return 0;

@@ -57,7 +57,7 @@ public class ThresholdCheck extends Component {
 		if(value >= threshold && !alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("beep:true,VOC:"+value);
+			out = create("\"beep\":true,\"VOC\":"+value);
 			outport.send(out);
 			
 			alreadyOverThreshold = true;
@@ -65,7 +65,7 @@ public class ThresholdCheck extends Component {
 		if(value < threshold && alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("beep:false,VOC:"+value);
+			out = create("\"beep\":false,\"VOC\":"+value);
 			outport.send(out);
 			
 			alreadyOverThreshold = false;

@@ -73,22 +73,22 @@ public class ActionSuggester extends Component {
 			diff = voc - threshold;
 			if(diff > 1000){
 				
-				out = create("{"+info+",door:true,window:true}");
+				out = create("{"+info+",\"door\":true,\"window\":true}");
 				outportState.send(out);
 
 				
 			} else if(temperator < 10){
 				
-				out = create("{"+info+",door:true,window:false}");
+				out = create("{"+info+",\"door\":true,\"window\":false}");
 				outportState.send(out);
 				
 			} else {
-				out = create("{"+info+",door:false,window:true}");
+				out = create("{"+info+",\"door\":false,\"window\":true}");
 				outportState.send(out);
 			}
 		}
 		else {
-			out = create("{"+info+",door:false,window:false}");
+			out = create("{"+info+",\"door\":false,\"window\":false}");
 			outportState.send(out);
 			
 		}
@@ -104,13 +104,15 @@ public class ActionSuggester extends Component {
 		while(infoTokenizer.hasMoreTokens()){
 			elementTokenizer = new StringTokenizer(infoTokenizer.nextToken(),":");
 			key = elementTokenizer.nextToken();
-			if(!key.equals("VOC")){
+			if(!key.equals("\"VOC\"")){
 				result=result+key+":"+elementTokenizer.nextToken()+",";
 			}
 				
 		}
 		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
-		result = "timestamp:"+timeStamp.toString()+","+result;
+		result = "\"type\":"+"\"airquality\""+","+result;
+//		result = "\"timestamp\":"+timeStamp.toString()+","+result;
+		result = "\"timestamp\":"+11111+","+result;
 		return result.substring(0, result.length()-1);
 	}
 
@@ -131,7 +133,7 @@ public class ActionSuggester extends Component {
 		StringTokenizer elementTokenizer;
 		while(infoTokenizer.hasMoreTokens()){
 			elementTokenizer = new StringTokenizer(infoTokenizer.nextToken(),":");
-			if(elementTokenizer.nextToken().equals("VOC"))
+			if(elementTokenizer.nextToken().equals("\"VOC\""))
 				return Integer.parseInt(elementTokenizer.nextToken());
 		}
 		return 0;
