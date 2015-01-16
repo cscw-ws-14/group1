@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+	<script type="text/javascript" src="js/CWebsocket.js"></script>
+</head>
+<body>
+  
+<script type="text/javascript">
+	App.url = 'ws://localhost:8887';
+	App.channel = '';
+	
+	App.OnMessage = function(event){
+		console.log(event.data);
+	}
+	
+    App.Construct();
+    App.Run();
+</script>
+	
+	<input type="button" onclick="App.Run()" value="reconnect" />
+	
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

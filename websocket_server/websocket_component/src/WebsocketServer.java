@@ -2,6 +2,7 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Collection;
@@ -12,6 +13,12 @@ import java.util.Collection;
  *
  * initiate or get the instance using getInstance([port number])
  * limitation: there is no such a thing as "sub/channel/subfolder" using this library
+ * use "type" to differentiate your message with others.
+ * e.g:
+ * {
+ *  "type": "airquality",
+ *  "v": 112332
+ * }
  *
  * this class will open a port and keep listening into that port until the program get killed
  * this class can not receive message
@@ -33,6 +40,21 @@ public class WebsocketServer extends WebSocketServer {
                 instance = new WebsocketServer(WebsocketServer.port);
                 instance.start();
 
+                Runtime.getRuntime().addShutdownHook(new Thread()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try {
+                            instance.stop();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("stopped websocket server");
+                    }
+                });
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -85,4 +107,5 @@ public class WebsocketServer extends WebSocketServer {
             }
         }
     }
+
 }

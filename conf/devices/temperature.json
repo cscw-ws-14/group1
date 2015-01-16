@@ -10,7 +10,7 @@
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/temperature.py"
+        "exec": "python agents/temperature.py"
       },
       "representation": {
         "application/json": {

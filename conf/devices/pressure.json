@@ -10,7 +10,7 @@
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/pressure.py"
+        "exec": "python agents/pressure.py"
       },
       "representation": {
         "application/json": {

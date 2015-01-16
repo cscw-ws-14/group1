@@ -10,7 +10,7 @@
       "agent": {
         "type": "service",
         "dir": null,
-        "exec": "python dummy/movement.py"
+        "exec": "python agents/movement.py"
       },
       "representation": {
         "application/json": {
