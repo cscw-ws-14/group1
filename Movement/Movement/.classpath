@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="src" path="/javafbp-master"/>
 	<classpathentry kind="lib" path="C:/Users/Ashish/Downloads/javaFBPMosquittoComponent-master/javaFBPMosquittoComponent-master/lib/org.eclipse.paho.client.mqttv3_1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ashish/Documents/CSCW/websocket_server/websocket_component/lib/java_websocket.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ashish/Documents/CSCW/IndoorAirQuality/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
