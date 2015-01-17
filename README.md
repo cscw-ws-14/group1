@@ -20,4 +20,4 @@ To run the coffee DB server,
 
 $ cd coffee
 
-$ sudo node cscw_final_server_red.js
+$ sudo node coffee_red.js
