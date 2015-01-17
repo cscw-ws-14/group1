@@ -5,219 +5,219 @@
     "db":"all_database"
   },
   {
-    "id":"7765e6af.889a18",
+    "id":"5384d85.fac7b28",
     "type":"function",
     "name":"DROP",
     "func":" \nmsg.topic =\n\t\"DROP TABLE \" + msg.payload.table_name + \";\";\n\nreturn msg",
     "outputs":1,
-    "x":466.4722328186035,
-    "y":625.0000114440918,
-    "z":"808c5c51.7f73a",
+    "x":482,
+    "y":618.0000114440918,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28"
+        "c50e3988.3af1c8"
       ]
     ]
   },
   {
-    "id":"56b05b6c.a94fa4",
+    "id":"b132fb61.4ecd08",
     "type":"function",
     "name":"CREATE",
     "func":"msg.topic = \n\t\t\"create table if not exists \" + msg.payload.table_name +\n\t\t \" \" + msg.payload.table_parameter\n\t\t//+\"(UserId integer NOT NULL UNIQUE, \"\n\t\t//+\"Intake integer DEFAULT 0);\"\n\nreturn msg",
     "outputs":1,
-    "x":475.47222900390625,
-    "y":252,
-    "z":"808c5c51.7f73a",
+    "x":490.99999618530273,
+    "y":245,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28"
+        "c50e3988.3af1c8"
       ]
     ]
   },
   {
-    "id":"c9fac16d.36054",
+    "id":"366d683.fc99298",
     "type":"http in",
     "name":"SELECT",
     "url":"/sqlite/select",
     "method":"get",
-    "x":60.5,
-    "y":177.11111450195312,
-    "z":"808c5c51.7f73a",
+    "x":76.02776718139648,
+    "y":170.11111450195312,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "c6a59f43.395a6"
+        "8eaa2368.7155e"
       ]
     ]
   },
   {
-    "id":"f5e5d947.0a1a28",
+    "id":"c50e3988.3af1c8",
     "type":"sqlite",
     "mydb":"133cbb60.ecc345",
     "name":"all database",
-    "x":805,
-    "y":353,
-    "z":"808c5c51.7f73a",
+    "x":820.5277671813965,
+    "y":346,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "a57211be.5a8df",
-        "c6013662.39fec8"
+        "a38e7cc.f5c718",
+        "7f7fb531.80804c"
       ]
     ]
   },
   {
-    "id":"e7157b3b.18ea88",
+    "id":"8d4091ca.72bf7",
     "type":"http in",
     "name":"CREATE",
     "url":"/sqlite/create",
     "method":"post",
-    "x":58,
-    "y":254,
-    "z":"808c5c51.7f73a",
+    "x":73.52776718139648,
+    "y":247,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "d61de2d7.29e22"
+        "62a91f42.9d56e"
       ]
     ]
   },
   {
-    "id":"a68435c4.597bc8",
+    "id":"7c318c4e.83ce74",
     "type":"http in",
     "name":"UPDATE",
     "url":"/sqlite/update",
     "method":"put",
-    "x":64,
-    "y":456,
-    "z":"808c5c51.7f73a",
+    "x":79.52776718139648,
+    "y":449,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "429e9975.bd6168"
+        "9f0360a.f60fca"
       ]
     ]
   },
   {
-    "id":"f47292e8.0b8d7",
+    "id":"ccf3be3b.330c4",
     "type":"http in",
     "name":"INSERT",
     "url":"/sqlite/insert",
     "method":"post",
-    "x":56,
-    "y":343,
-    "z":"808c5c51.7f73a",
+    "x":71.52776718139648,
+    "y":336,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "38ab7fa2.c7548"
+        "8252bc25.7dad4"
       ]
     ]
   },
   {
-    "id":"6b9fdf7c.94602",
+    "id":"2fb38558.d04c7a",
     "type":"http in",
     "name":"DELETE",
     "url":"/sqlite/delete",
     "method":"delete",
-    "x":61.25,
-    "y":549.7500076293945,
-    "z":"808c5c51.7f73a",
+    "x":76.77776718139648,
+    "y":542.7500076293945,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "27b122fc.d84ede"
+        "8c312751.73ced8"
       ]
     ]
   },
   {
-    "id":"2467bcba.db9844",
+    "id":"f0f89c67.0f076",
     "type":"http in",
     "name":"DROP",
     "url":"/sqlite/drop",
     "method":"delete",
-    "x":59.25,
-    "y":624.7500095367432,
-    "z":"808c5c51.7f73a",
+    "x":74.77776718139648,
+    "y":617.7500095367432,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "33a46fed.cc5b9"
+        "b856ceb5.47a93"
       ]
     ]
   },
   {
-    "id":"7a09865b.85f678",
+    "id":"23446177.dcbb9e",
     "type":"function",
     "name":"INSERT",
     "func":"msg.topic = \n\t\t\"INSERT INTO \" + msg.payload.table_name\t\t+ \n\t\tmsg.payload.col_query + \" values \" + \n\t\tmsg.payload.val_query;\n\nreturn msg;",
     "outputs":1,
-    "x":471,
-    "y":343,
-    "z":"808c5c51.7f73a",
+    "x":486.5277671813965,
+    "y":336,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28",
-        "5572adb9.aa8d54"
+        "c50e3988.3af1c8",
+        "c9c1a53e.363e58"
       ]
     ]
   },
   {
-    "id":"c68fb5c9.397048",
+    "id":"7bf44209.840bbc",
     "type":"function",
     "name":"UPDATE",
     "func":"msg.topic = \n\t\t\"UPDATE \" + msg.payload.table_name\n\t\t+ \" SET \" + msg.payload.update_query\n\nif(msg.payload.where_query)\n\tmsg.topic += \" where \" + msg.payload.where_query;\n\nreturn msg",
     "outputs":1,
-    "x":471.75000762939453,
-    "y":457.7500066757202,
-    "z":"808c5c51.7f73a",
+    "x":487.277774810791,
+    "y":450.7500066757202,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28",
-        "5572adb9.aa8d54"
+        "c50e3988.3af1c8",
+        "c9c1a53e.363e58"
       ]
     ]
   },
   {
-    "id":"735eb3b.f8ca14c",
+    "id":"ad495cac.52b6a",
     "type":"function",
     "name":"DELETE",
     "func":"msg.topic = \t\"DELETE FROM \" + msg.payload.table_name;\n\nif(msg.payload.where_query)\n\tmsg.topic += \" WHERE \" + msg.payload.where_query; \n\nreturn msg;",
     "outputs":1,
-    "x":468.25000762939453,
-    "y":549.7500076293945,
-    "z":"808c5c51.7f73a",
+    "x":483.777774810791,
+    "y":542.7500076293945,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28"
+        "c50e3988.3af1c8"
       ]
     ]
   },
   {
-    "id":"a57211be.5a8df",
+    "id":"a38e7cc.f5c718",
     "type":"function",
     "name":"http_response_formatter",
     "func":"if(msg.payload.length > 0){ \n\tmsg.statusCode = 200;\n}\nelse\n\tmsg.statusCode = 404;\n\nmsg.headers = {\n\t\"content-type\":\"application/javascript\"\n} \n\nreturn msg;",
     "outputs":1,
-    "x":1058,
-    "y":353,
-    "z":"808c5c51.7f73a",
+    "x":1073.5277671813965,
+    "y":346,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "11d04080.4da5c8"
+        "d9acae6a.26535"
       ]
     ]
   },
   {
-    "id":"5034aba0.afcb54",
+    "id":"978906f2.6876f8",
     "type":"function",
     "name":"SELECT_ONE",
     "func":"msg.topic += \" LIMIT 1\"; \n\nreturn msg",
     "outputs":1,
-    "x":639.5,
-    "y":123.88888549804688,
-    "z":"808c5c51.7f73a",
+    "x":655.0277671813965,
+    "y":116.88888549804688,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "f5e5d947.0a1a28"
+        "c50e3988.3af1c8"
       ]
     ]
   },
   {
-    "id":"fdd56ea2.022a9",
+    "id":"6cc27c04.933d84",
     "type":"inject",
     "name":"DROP",
     "topic":"",
@@ -226,17 +226,17 @@
     "repeat":"",
     "crontab":"",
     "once":false,
-    "x":772,
-    "y":632,
-    "z":"808c5c51.7f73a",
+    "x":787.5277671813965,
+    "y":625,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "891de31b.76e22"
+        "7277b3ea.8d884c"
       ]
     ]
   },
   {
-    "id":"5711e142.a8ee2",
+    "id":"2dc2218f.d23dde",
     "type":"inject",
     "name":"",
     "topic":"",
@@ -245,24 +245,24 @@
     "repeat":"",
     "crontab":"",
     "once":false,
-    "x":771.4444427490234,
-    "y":548.1111128330231,
-    "z":"808c5c51.7f73a",
+    "x":786.9722099304199,
+    "y":541.1111128330231,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "fb37c27a.04c84"
+        "42d5799c.bd2a88"
       ]
     ]
   },
   {
-    "id":"fb37c27a.04c84",
+    "id":"42d5799c.bd2a88",
     "type":"function",
     "name":"InitConst",
     "func":"context.global.sqlTableName = \"IntakeToday\"\n\nreturn { payload: context }",
     "outputs":"1",
-    "x":949.2222290039062,
-    "y":547.0000009536743,
-    "z":"808c5c51.7f73a",
+    "x":964.7499961853027,
+    "y":540.0000009536743,
+    "z":"88df32e9.7720d",
     "wires":[
       [
 
@@ -270,22 +270,22 @@
     ]
   },
   {
-    "id":"891de31b.76e22",
+    "id":"7277b3ea.8d884c",
     "type":"function",
     "name":"Drop",
     "func":"var table_name = context.global.sqlTableName\n\nconsole.log(\"table exists\")\ndrop = {\n\ttopic: \"DROP TABLE \"+table_name+\";\"\n}\n\nreturn drop",
     "outputs":1,
-    "x":939,
-    "y":631,
-    "z":"808c5c51.7f73a",
+    "x":954.5277671813965,
+    "y":624,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "532aa63a.acd558"
+        "ef9ddea0.10622"
       ]
     ]
   },
   {
-    "id":"4508c3c7.baf73c",
+    "id":"72b9af93.8d465",
     "type":"inject",
     "name":"CREATE",
     "topic":"",
@@ -294,32 +294,32 @@
     "repeat":"",
     "crontab":"",
     "once":false,
-    "x":772,
-    "y":670,
-    "z":"808c5c51.7f73a",
+    "x":787.5277671813965,
+    "y":663,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "8643bcbb.79bc4"
+        "e70318c8.18fce8"
       ]
     ]
   },
   {
-    "id":"8643bcbb.79bc4",
+    "id":"e70318c8.18fce8",
     "type":"function",
     "name":"Create",
     "func":"var table_name = context.global.sqlTableName\n\ncreate = {\n\ttopic: \n\t\t\"CREATE TABLE \"+table_name\n\t\t+\"(UserId integer NOT NULL UNIQUE, \"\n\t\t+\"Intake integer DEFAULT 0);\"\n}\n\nreturn create",
     "outputs":1,
-    "x":938,
-    "y":672,
-    "z":"808c5c51.7f73a",
+    "x":953.5277671813965,
+    "y":665,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "532aa63a.acd558"
+        "ef9ddea0.10622"
       ]
     ]
   },
   {
-    "id":"87a20723.785df8",
+    "id":"7d1f0d13.82e0f4",
     "type":"inject",
     "name":"",
     "topic":"SELECT * FROM test_table",
@@ -328,17 +328,17 @@
     "repeat":"",
     "crontab":"",
     "once":false,
-    "x":838.6666793823242,
-    "y":592.333338022232,
-    "z":"808c5c51.7f73a",
+    "x":854.1944465637207,
+    "y":585.333338022232,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "532aa63a.acd558"
+        "ef9ddea0.10622"
       ]
     ]
   },
   {
-    "id":"77d107d2.882ef8",
+    "id":"42281ac6.bdd7e4",
     "type":"inject",
     "name":"INSERT",
     "topic":"",
@@ -347,229 +347,229 @@
     "repeat":"",
     "crontab":"",
     "once":false,
-    "x":771.7777786254883,
-    "y":718.1111166477203,
-    "z":"808c5c51.7f73a",
+    "x":787.3055458068848,
+    "y":711.1111166477203,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "83025929.7cfda8"
+        "4c0b6296.b3f49c"
       ]
     ]
   },
   {
-    "id":"83025929.7cfda8",
+    "id":"4c0b6296.b3f49c",
     "type":"function",
     "name":"Insert",
     "func":"var table_name = context.global.sqlTableName\n\ncreate = {\n\ttopic: \n\t\t\"insert into \" + table_name\t\t+\n\t\t\"(UserId, Intake) values ('1','1')\"\n}\n\nreturn create",
     "outputs":1,
-    "x":937.7777786254883,
-    "y":720.1111166477203,
-    "z":"808c5c51.7f73a",
+    "x":953.3055458068848,
+    "y":713.1111166477203,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "532aa63a.acd558"
+        "ef9ddea0.10622"
       ]
     ]
   },
   {
-    "id":"532aa63a.acd558",
+    "id":"ef9ddea0.10622",
     "type":"sqlite",
     "mydb":"133cbb60.ecc345",
     "name":"",
-    "x":1230.22220993042,
-    "y":614.2222235202789,
-    "z":"808c5c51.7f73a",
+    "x":1245.7499771118164,
+    "y":607.2222235202789,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "4d710015.b28f"
+        "6ab0873c.954f78"
       ]
     ]
   },
   {
-    "id":"4d710015.b28f",
+    "id":"6ab0873c.954f78",
     "type":"debug",
     "name":"",
     "active":true,
     "console":"false",
     "complete":"false",
-    "x":1422.6666641235352,
-    "y":609.4444448947906,
-    "z":"808c5c51.7f73a",
+    "x":1438.1944313049316,
+    "y":602.4444448947906,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
   },
   {
-    "id":"c6013662.39fec8",
+    "id":"7f7fb531.80804c",
     "type":"debug",
     "name":"",
     "active":false,
     "console":"false",
     "complete":"true",
-    "x":983,
-    "y":209,
-    "z":"808c5c51.7f73a",
+    "x":998.5277671813965,
+    "y":202,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
   },
   {
-    "id":"7f2d361b.80d2c8",
+    "id":"a5de2d62.5a21d",
     "type":"function",
     "name":"SELECT",
     "func":"var table_name = msg.payload.table_name;\nvar where_query = msg.payload.where_query;\n \nvar query = \"select * from \" + table_name + \" \" \nif(where_query)\t\n\tquery += \" where \" + where_query ; \n\t\nmsg.topic = query \n\n// select one\nif(msg.req.path.indexOf(\"_one\"))\n{\n\treturn [null, msg]; \n} else {\n// select all\n\treturn [msg,null];\n}\n",
     "outputs":"2",
-    "x":471,
-    "y":176,
-    "z":"808c5c51.7f73a",
+    "x":486.5277671813965,
+    "y":169,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "5034aba0.afcb54"
+        "978906f2.6876f8"
       ],
       [
-        "f5e5d947.0a1a28"
+        "c50e3988.3af1c8"
       ]
     ]
   },
   {
-    "id":"c6a59f43.395a6",
+    "id":"8eaa2368.7155e",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.query; \n \nvar where_query = \"\"; \nif(typeof(params.where) != \"undefined\"){\n\tvar where_params = JSON.parse(params.where) \n\t\t\n\tfor(var i = 0; i < where_params.length; i++){\n\t\twhere_query += where_params[i].col + \" \";\n\t\twhere_query += where_params[i].op + \" \";\n\t\twhere_query += where_params[i].val + \" \";\t\n\t\tif(typeof(where_params[i].chain_op) != \"undefined\")\n\t\t\twhere_query += where_params[i].chain_op + \" \";\n\t} \n}\n\nmsg.payload = {\n\ttable_name: params.table_name,\n\twhere_query: where_query \n}\n\nreturn msg;",
     "outputs":1,
-    "x":264,
-    "y":177,
-    "z":"808c5c51.7f73a",
+    "x":279.5277671813965,
+    "y":170,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "7f2d361b.80d2c8"
+        "a5de2d62.5a21d"
       ]
     ]
   },
   {
-    "id":"d61de2d7.29e22",
+    "id":"62a91f42.9d56e",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.body; \n\nvar table_params = {};\nvar table_param_query = \"\";\n \nif(typeof(params.table_params) != \"undefined\")\n{ \n\ttable_params = JSON.parse(params.table_params) \n\t\t\n\tfor(var i = 0; i < table_params.length; i++){\n\t\ttable_param_query += table_params[i].col + \" \";\n\t\ttable_param_query += table_params[i].type + \" \";\n\t\ttable_param_query += table_params[i].option + \" \";\t\n\t\tif(i < table_params.length - 1)\n\t\t\ttable_param_query += \", \";\n\t} \n}\n\nmsg.payload.\ttable_name = params.table_name;\nmsg.payload.table_parameter = \"(\" + table_param_query + \")\";\n\nreturn msg;",
     "outputs":1,
-    "x":264,
-    "y":253,
-    "z":"808c5c51.7f73a",
+    "x":279.5277671813965,
+    "y":246,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "56b05b6c.a94fa4"
+        "b132fb61.4ecd08"
       ]
     ]
   },
   {
-    "id":"37f80ccc.c807f4",
+    "id":"68d0060b.972ff8",
     "type":"comment",
     "name":"commands documentation",
-    "info":"GET /sqlite/select or /sqlite/select_one\nurl parameter:\n1. table_name (string)\n2. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nPOST /sqlite/create\nx-www-form-url-encoded\n1. table_name (string)\n2. table_params (json string) e.g.: \n[{  \n  \"col\":\"UserId\", \"type\":\"integer\", \"option\":\"NOT NULL UNIQUE\" \n},{...}]\n\nPOST /sqlite/insert\nx-www-form-url-encoded\n1. table_name (string)\n2. cols (json array) e.g.: [\"user_id\", \"username\"]\n3. vals (json array) e.g.: [1,\"user_a\"]\n\nPOST /sqlite/update\nx-www-form-url-encoded\n1. table_name (string)\n2. cols (json array) e.g.: [\"user_id\", \"username\"]\n3. vals (json array) e.g.: [1,\"user_a\"]\n4. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nDELETE /sqlite/delete\nurl parameter\n1. table_name (string) \n2. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nDROP /sqlite/drop\nurl parameter\n1. table_name (string)  ",
-    "x":482,
-    "y":50,
-    "z":"808c5c51.7f73a",
+    "info":"GET /sqlite/select or /sqlite/select_one\nurl parameter:\n1. table_name (string)\n2. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nPOST /sqlite/create\nx-www-form-url-encoded\n1. table_name (string)\n2. table_params (json string) e.g.: \n[{  \n  \"col\":\"UserId\", \"type\":\"integer\", \"option\":\"NOT NULL UNIQUE\" \n},{...}]\n\nPOST /sqlite/insert\nx-www-form-url-encoded\n1. table_name (string)\n2. cols (json array) e.g.: [\"user_id\", \"username\"]\n3. vals (json array) e.g.: [1,\"user_a\"]\n\nPUT /sqlite/update\nx-www-form-url-encoded\n1. table_name (string)\n2. cols (json array) e.g.: [\"user_id\", \"username\"]\n3. vals (json array) e.g.: [1,\"user_a\"]\n4. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nDELETE /sqlite/delete\nurl parameter\n1. table_name (string) \n2. where (json string) e.g.: \n[{\n  \"col\":\"username\", \"op\":\"like\", \"val\":\"%test%\", \"chain_op\":\"or\"\n},{...}]\n\nDROP /sqlite/drop\nurl parameter\n1. table_name (string)  ",
+    "x":497.5277671813965,
+    "y":43,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
   },
   {
-    "id":"38ab7fa2.c7548",
+    "id":"8252bc25.7dad4",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.body; \n \nvar col_query = \"\";\nvar val_query = \"\";\n\nif(typeof(params.cols) != \"undefined\")\n{ \n\tvar columns = JSON.parse(params.cols) \n\t\t\n\tfor(var i = 0; i < columns.length; i++){\n\t\tcol_query += columns[i] + \" \";\t\n\t\tif(i < columns.length - 1)\n\t\t\tcol_query += \", \";\n\t} \n}\n\nif(typeof(params.vals) != \"undefined\")\n{ \n\tvar values = JSON.parse(params.vals) \n\t\t\n\tfor(var i = 0; i < values.length; i++){\n\t\tval_query += \"'\" + values[i] + \"'\";\t\n\t\tif(i < values.length - 1)\n\t\t\tval_query += \", \";\n\t} \n}\n\nmsg.payload.\ttable_name = params.table_name;\nmsg.payload.col_query = \"(\" + col_query + \")\";\nmsg.payload.val_query = \"(\" + val_query + \")\";\n\nreturn msg;",
     "outputs":1,
-    "x":263,
-    "y":343,
-    "z":"808c5c51.7f73a",
+    "x":278.5277671813965,
+    "y":336,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "7a09865b.85f678"
+        "23446177.dcbb9e"
       ]
     ]
   },
   {
-    "id":"f56680aa.0a998",
+    "id":"3c4bfe95.c3b402",
     "type":"debug",
     "name":"",
     "active":true,
     "console":"false",
     "complete":"true",
-    "x":464.50000762939453,
-    "y":505.7500057220459,
-    "z":"808c5c51.7f73a",
+    "x":480.027774810791,
+    "y":498.7500057220459,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
   },
   {
-    "id":"5572adb9.aa8d54",
+    "id":"c9c1a53e.363e58",
     "type":"debug",
     "name":"",
     "active":true,
     "console":"false",
     "complete":"true",
-    "x":793,
-    "y":264,
-    "z":"808c5c51.7f73a",
+    "x":808.5277671813965,
+    "y":257,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
   },
   {
-    "id":"429e9975.bd6168",
+    "id":"9f0360a.f60fca",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.body;\n\nvar update_query = \"\"; \nvar where_query = \"\"; \n\nif(typeof(params.cols) != \"undefined\")\n{  \n\tvar columns = JSON.parse(params.cols); \n\tvar values = JSON.parse(params.vals);\n\t\n\tfor(var i = 0; i < columns.length; i++){\n\t\tupdate_query += columns[i] + \" = \";\n\t\tupdate_query += values[i] + \" \";\n\t\t\n\t\tif(i < columns.length - 1)\n\t\t\tupdate_query += \", \";\n\t} \n}\n  \nif(typeof(params.where) != \"undefined\"){\n\tvar where_params = JSON.parse(params.where) \n\t\t\n\tfor(var i = 0; i < where_params.length; i++){\n\t\twhere_query += where_params[i].col + \" \";\n\t\twhere_query += where_params[i].op + \" \";\n\t\twhere_query += where_params[i].val + \" \";\t\n\t\tif(typeof(where_params[i].chain_op) != \"undefined\")\n\t\t\twhere_query += where_params[i].chain_op + \" \";\n\t} \n}\n\n// the object msg.payload doesnt exist here yet\nmsg.payload = {}\nmsg.payload.update_query = update_query; \nmsg.payload.where_query = where_query;\nmsg.payload.\ttable_name = \"\"+params.table_name;\n\nreturn msg;",
     "outputs":1,
-    "x":255.00000381469727,
-    "y":456.7500057220459,
-    "z":"808c5c51.7f73a",
+    "x":270.52777099609375,
+    "y":449.7500057220459,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "c68fb5c9.397048"
+        "7bf44209.840bbc"
       ]
     ]
   },
   {
-    "id":"27b122fc.d84ede",
+    "id":"8c312751.73ced8",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.query; \n \nvar where_query = \"\"; \n \nif(typeof(params.where) != \"undefined\"){\n\tvar where_params = JSON.parse(params.where) \n\t\t\n\tfor(var i = 0; i < where_params.length; i++){\n\t\twhere_query += where_params[i].col + \" \";\n\t\twhere_query += where_params[i].op + \" \";\n\t\twhere_query += where_params[i].val + \" \";\t\n\t\tif(typeof(where_params[i].chain_op) != \"undefined\")\n\t\t\twhere_query += where_params[i].chain_op + \" \";\n\t} \n}\n\n// the object msg.payload doesnt exist here yet\nmsg.payload = {}\nmsg.payload.\ttable_name = params.table_name; \nmsg.payload.where_query = where_query;\n\nreturn msg;",
     "outputs":1,
-    "x":252.5,
-    "y":549.2500076293945,
-    "z":"808c5c51.7f73a",
+    "x":268.0277671813965,
+    "y":542.2500076293945,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "735eb3b.f8ca14c",
-        "f56680aa.0a998"
+        "ad495cac.52b6a",
+        "3c4bfe95.c3b402"
       ]
     ]
   },
   {
-    "id":"33a46fed.cc5b9",
+    "id":"b856ceb5.47a93",
     "type":"function",
     "name":"params_parser",
     "func":"var params = msg.req.query;\n   \n// the object msg.payload doesnt exist here yet\nmsg.payload = {}\nmsg.payload.\ttable_name = params.table_name;  \n\nreturn msg;",
     "outputs":1,
-    "x":252.50000381469727,
-    "y":625.5000095367432,
-    "z":"808c5c51.7f73a",
+    "x":268.02777099609375,
+    "y":618.5000095367432,
+    "z":"88df32e9.7720d",
     "wires":[
       [
-        "7765e6af.889a18",
-        "f56680aa.0a998"
+        "5384d85.fac7b28",
+        "3c4bfe95.c3b402"
       ]
     ]
   },
   {
-    "id":"11d04080.4da5c8",
+    "id":"d9acae6a.26535",
     "type":"http response",
     "name":"http response",
-    "x":1302,
-    "y":351,
-    "z":"808c5c51.7f73a",
+    "x":1317.5277671813965,
+    "y":344,
+    "z":"88df32e9.7720d",
     "wires":[
 
     ]
