@@ -25,7 +25,7 @@ var RED = require("./red/red.js");
 var server;
 var app = express();
 
-var settingsFile = "./cscw_final_server_settings";
+var settingsFile = "./coffee_settings";
 var flowFile;
 
 var knownOpts = {
