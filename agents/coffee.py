@@ -21,7 +21,7 @@ def main():
         jsondump = json.dumps(ret) 
         out(jsondump)
         sys.stdout.flush()
-        time.sleep(2)
+        time.sleep(5)
 
 if __name__ == '__main__':
     try:

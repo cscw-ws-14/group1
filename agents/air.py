@@ -17,7 +17,7 @@ def main():
 
         out(ret)
         sys.stdout.flush()
-        time.sleep(0.5)
+        time.sleep(0.1)
 
 if __name__ == '__main__':
     try:
