@@ -105,46 +105,47 @@ body {
 
 .led_bg{
 	position: relative;
-	width: 22px;
-	height: 153px;
+	width: 122px;
+	height: 640px;
 	background-image: url(../images/lvl_0.png);
 	float:left;
+	margin-top:130px;
 }
 .led{
 	position: relative;
-	width: 22px;
-	height: 153px;
+	width: 122px;
+	height: 640px;
 	background-image: url(../images/lvl_0.png);
 	float:left;
-	left:-22px;
+	left:-122px;
+    margin-top:130px;
 }
 
 .window{
 	position: relative;
-	width: 54px;
-	height: 54px;
-	background-image: url(../images/window_deactive.png);
+	width: 221px;
+	height: 203px;
+	background-image: url(../images/window_deactive.gif);
 	float:left;
-	top:80px;
-	left:-54px;
+	top:180px;
+	left:-18px;
 }
 
 .door{
 	position: relative;
-	width: 54px;
-	height: 55px;
-	background-image: url(../images/door_deactive.png);
+	width: 221px;
+	height: 240px;
+	background-image: url(../images/door_deactive.gif);
 	float:left;
-	top:10px;
+	top:100px;
 }
 
 .speaker{
 	position: relative;
-	width: 19px;
-	height: 19px;
-	background-image: url(../images/speaker_deactive.png); 
-	top: -14px;
-	left: 2px;
+	width: 128px;
+	height: 128px;
+	background-image: url(../images/speaker_deactive.png);  
+	left: -4px; 
 }
 
 .coffee{

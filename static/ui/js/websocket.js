@@ -55,30 +55,30 @@ var App = {
 		// play beep
 		if(data.beep){
 			App.PlaySound();
-			$('#speaker').css("background-image", "url(images/speaker_active.png)");
+			$('#speaker').css("background-image", "url(images/speaker_active.gif)");
 			
 			// set time out on the next 1 second to turn the image off
 			window.setTimeout(function(){
-				$('#speaker').css("background-image", "url(images/speaker_deactive.png)");
+				$('#speaker').css("background-image", "url(images/speaker_deactive.gif)");
 			}, 1000);
 		}
 			
 		// change door css images
 		var door = $('#door');
 		if(data.door){
-			door.css("background-image", "url(images/door_active.png)");
+			door.css("background-image", "url(images/door_active.gif)");
 		}
 		else{
-			door.css("background-image", "url(images/door_deactive.png)");
+			door.css("background-image", "url(images/door_deactive.gif)");
 		}
 		
 		// change window css images
 		var window_ = $('#window');
 		if(data.window){
-			window_.css("background-image", "url(images/window_active.png)");
+			window_.css("background-image", "url(images/window_active.gif)");
 		}
 		else{
-			window_.css("background-image", "url(images/window_deactive.png)"); 
+			window_.css("background-image", "url(images/window_deactive.gif)"); 
 		}
 	},
 	
