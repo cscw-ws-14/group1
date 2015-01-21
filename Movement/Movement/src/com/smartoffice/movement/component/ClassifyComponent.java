@@ -1,4 +1,4 @@
-package com.smartoffice.movement;
+package com.smartoffice.movement.component;
 
 import com.jpmorrsn.fbp.engine.Component;
 import com.jpmorrsn.fbp.engine.InPort;
@@ -16,7 +16,7 @@ import com.jpmorrsn.fbp.engine.Packet;
 	@OutPort(value = "MESSAGE", description = "sends a message to the node handling Kinect", type = String.class, optional = true)
 })
 
-public class Classify extends Component {
+public class ClassifyComponent extends Component {
 	
 	private InputPort inPort;
 	private OutputPort outPort;
@@ -43,7 +43,7 @@ public class Classify extends Component {
 			falseCount++;
 			totalCount++;
 		}
-		if(totalCount == 50)
+		if(totalCount == 10)
 		{
 			if(trueCount>falseCount)
 			{
@@ -58,7 +58,7 @@ public class Classify extends Component {
 				totalCount = 0;
 				if(outPort.isConnected())
 				{
-					Packet finishpacket = create("Send request");
+					Packet finishpacket = create("Do you want to start an exercise?");
 					outPort.send(finishpacket);
 				}
 			}

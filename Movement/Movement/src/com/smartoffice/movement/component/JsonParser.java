@@ -5,7 +5,7 @@
  * 10.12.2014
  * 
  */
-package com.smartoffice.movement;
+package com.smartoffice.movement.component;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

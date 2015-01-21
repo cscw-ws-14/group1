@@ -1,4 +1,4 @@
-package com.smartoffice.movement;
+package com.smartoffice.movement.library;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;

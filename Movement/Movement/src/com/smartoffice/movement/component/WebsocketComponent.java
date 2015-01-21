@@ -1,6 +1,7 @@
-package com.smartoffice.movement;
+package com.smartoffice.movement.component;
 
 import com.jpmorrsn.fbp.engine.*;
+import com.smartoffice.movement.library.WebsocketServer;
 
 /**
  * need WebsocketServer.java (the wrapper of the websocket server)

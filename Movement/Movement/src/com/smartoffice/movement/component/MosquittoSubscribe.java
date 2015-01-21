@@ -1,4 +1,4 @@
-package com.smartoffice.movement;
+package com.smartoffice.movement.component;
 
 import com.jpmorrsn.fbp.engine.*;
 
