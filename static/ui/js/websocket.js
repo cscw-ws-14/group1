@@ -54,7 +54,7 @@ var App = {
 		 
 		// play beep
 		if(data.beep){
-			App.PlaySound();
+			App.PlaySound(); 
 			$('#speaker').css("background-image", "url(images/speaker_active.gif)");
 			
 			// set time out on the next 1 second to turn the image off
@@ -96,7 +96,10 @@ var App = {
 	
 	PlaySound: function(){ 
 		var audio = new Audio('images/beep.mp3');
-		audio.play(); 
+		var sound_opt = $('#sound_option').is(':checked');
+		if(sound_opt){
+			audio.play(); 
+		}
 	},
 	
 	OnClose: function(){
