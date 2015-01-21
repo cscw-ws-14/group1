@@ -109,7 +109,7 @@ body {
 	height: 640px;
 	background-image: url(../images/lvl_0.png);
 	float:left;
-	margin-top:130px;
+	margin-top:160px;
 }
 .led{
 	position: relative;
@@ -118,7 +118,8 @@ body {
 	background-image: url(../images/lvl_0.png);
 	float:left;
 	left:-122px;
-    margin-top:130px;
+    margin-top:160px;
+	border: 1px solid;
 }
 
 .window{
@@ -155,4 +156,11 @@ body {
 	background-image: url(../images/coffee_0.png); 
 	background-size: 128px 128px;
 	float:left;
+}
+.sound_option{
+	position:relative;
+	top: -675px;
+	position: relative;
+	margin-top:5px;
+	margin-bottom:5px;
 }
