@@ -85,7 +85,16 @@ var App = {
 	OnCoffee: function(data){
         // change bg to this coffee level
 		var led = $('#coffee');
-		led.css("background-image", "url(images/coffee_" + data.level + ".png)"); 
+		if(data.total <= 3)
+			led.css("background-image", "url(images/coffee_" + data.level + ".png)"); 
+		else {
+			led.css("background-image", "url(images/coffee_3.png)"); 
+		}
+		
+		if(data.total)
+			led.html(data.total + "X");
+		else
+			led.html("");
 	},
 	 
 	OnMovement: function(data){

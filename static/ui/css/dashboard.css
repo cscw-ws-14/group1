@@ -155,6 +155,8 @@ body {
 	background-image: url(../images/coffee_0.png); 
 	background-size: 128px 128px;
 	float:left;
+	font-size:25px;
+	padding-top:20px;
 }
 .sound_option{
 	position:relative;
