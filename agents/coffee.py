@@ -12,14 +12,14 @@ def out(msg):
     sys.stdout.write("%s\n" % msg)
   
 def main(): 
-    while(True):  
-	uid = randrange(1, 3)
+    while(True):
+        uid = randrange(1, 3)
         #t = int(time.time())
         #bro = ({'v':1,'uid':uid})
         #ret = {'bt':t, 'e':bro}
         
-		ret = {'user_id': uid} 
-		
+        ret = {'UserId': uid} 
+        
         jsondump = json.dumps(ret) 
         out(jsondump)
         sys.stdout.flush()
