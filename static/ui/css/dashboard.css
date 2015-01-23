@@ -127,17 +127,21 @@ body {
 	height: 203px;
 	background-image: url(../images/window_deactive.gif);
 	float:left;
-	top:180px;
-	left:-18px;
+	top:160px;
+	left:-38px;
+	background-size: 242px;
+	background-repeat:no-repeat;
 }
 
 .door{
 	position: relative;
-	width: 221px;
+	width: 196px;
 	height: 240px;
 	background-image: url(../images/door_deactive.gif);
 	float:left;
-	top:100px;
+	top:162px;
+	background-size: 196px;
+	background-repeat:no-repeat;
 }
 
 .speaker{
@@ -165,4 +169,4 @@ body {
 	margin-top:5px;
 	margin-bottom:5px;
 }
-.navbar-brand{font-size:24px;}
+.navbar-brand{font-size:54px;height:60px;}

@@ -55,11 +55,11 @@ var App = {
 		// play beep
 		if(data.beep){
 			App.PlaySound(); 
-			$('#speaker').css("background-image", "url(images/speaker_active.gif)");
+			$('#speaker').css("background-image", "url(images/speaker_active.png)");
 			
 			// set time out on the next 1 second to turn the image off
 			window.setTimeout(function(){
-				$('#speaker').css("background-image", "url(images/speaker_deactive.gif)");
+				$('#speaker').css("background-image", "url(images/speaker_deactive.png)");
 			}, 1000);
 		}
 			
