@@ -6,7 +6,7 @@
   "resources": [
     {
       "type": "Resource",
-      "name": "IAQ", 
+      "name": "IAQ/R1", 
       "agent": {
         "type": "service",
         "dir": null,
