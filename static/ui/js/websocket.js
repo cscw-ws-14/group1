@@ -1,6 +1,6 @@
 
 var App = {
-	url: "ws://localhost:1881/",
+	url: "ws://localhost:8887/",
 	channel: "", 
 	ws: null,
 	UserId: 1,
