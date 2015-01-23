@@ -3,6 +3,8 @@ var App = {
 	url: "ws://localhost:8887/",
 	channel: "", 
 	ws: null,
+	user_id: 1,
+	room_id: "R1",
   
 	//{timestamp:1, beep:true, level:1, door:true, window:true} 
     
@@ -83,18 +85,29 @@ var App = {
 	},
 	
 	OnCoffee: function(data){
-        // change bg to this coffee level
+        // change bg to this coffee total
 		var led = $('#coffee');
-		if(data.total <= 3)
-			led.css("background-image", "url(images/coffee_" + data.level + ".png)"); 
-		else {
-			led.css("background-image", "url(images/coffee_3.png)"); 
+		if(data.total <= 4)
+			led.css("background-image", "url(images/coffee_" + data.total + ".png)"); 
+		else 
+		{
+			led.css("background-image", "url(images/coffee_4.png)"); 
 		}
 		
-		if(data.total)
+		if(data.user_id != App.user_id)
+			return;
+			
+		if(data.total){
 			led.html(data.total + "X");
+			
+			if(data.total > 4){
+				led.css("color", "#FF0000");
+			}
+		}
 		else
 			led.html("");
+			
+		
 	},
 	 
 	OnMovement: function(data){
