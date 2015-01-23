@@ -35,8 +35,9 @@ def main():
              
             bro = {"v":cache_temperature,"u":"degC"}
             ret = {"bt":t, "e":bro} 
-        except ValueError:
-            ret = {"bt":t, "e":"error"}
+        except:
+		    bro = {"v":cache_temperature,"u":"degC"}
+            ret = {"bt":t, "e":bro}
             
         out(ret)
         sys.stdout.flush()
