@@ -32,7 +32,7 @@ component("WS", WebSocketComponents.WebsocketComponent.class);
 initialize("5", component("MedianFilter"), port("SIZE"));
 initialize(1500, component("ThresholdCheck"), port("THRESHOLD"));
 initialize("client1", component("MosquittoSubscriber"), port("CLIENTID"));
-initialize("/le/AirQuality/IAQ", component("MosquittoSubscriber"), port("TOPIC"));
+initialize("/le/AirQuality/IAQ/#", component("MosquittoSubscriber"), port("TOPIC"));
 initialize("/le/Bar/Outside_Temp", component("MosquittoSubscriber2"), port("TOPIC"));
 initialize("v", component("JsonParser"), port("KEY[0]"));
 initialize("v", component("JsonParser2"), port("KEY[0]"));

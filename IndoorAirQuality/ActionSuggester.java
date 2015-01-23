@@ -80,7 +80,7 @@ public class ActionSuggester extends Component {
 
 		if(voc >= threshold){
 			diff = voc - threshold;
-			if(diff > 800){
+			if(diff >= 700){
 				
 				out = create("{"+sendInfo+",\"door\":true,\"window\":true}");
 				outportState.send(out);
@@ -106,6 +106,7 @@ public class ActionSuggester extends Component {
 
 
 	private String removeVOCAddTimeStamp(String info) {
+		System.out.println("-------------------------"+info);
 		StringTokenizer infoTokenizer = new StringTokenizer(info,",");
 		StringTokenizer elementTokenizer;
 		String result="";

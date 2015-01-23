@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.RandomAccess;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
 import com.jpmorrsn.fbp.engine.Component;
 import com.jpmorrsn.fbp.engine.ComponentDescription;
@@ -41,6 +42,7 @@ public class MedianFilter extends Component {
 	private int size;
 	
 	private boolean firstTime = true;
+	private String extraInfo;
 
 	@Override
 	protected void execute() throws InterruptedException {
@@ -56,7 +58,9 @@ public class MedianFilter extends Component {
 		}
 		
 		ip = inportIN.receive();
-		int voc = Integer.parseInt((String)ip.getContent());
+		String inputData =  (String)ip.getContent();
+		int voc = getValue(inputData);
+		extraInfo = getExtraInfo(inputData);
 		values.add(voc);
 //		System.out.print("  ["+voc+"]   ");
 		drop(ip);
@@ -71,14 +75,14 @@ public class MedianFilter extends Component {
 			Packet out;
 			values.remove(0);
 			int median = findMedian();
-			out = create(median+"");
+			out = create(median+":extraInfo:"+extraInfo);
 			outport.send(out);
 			
 //			System.out.println(counter+")))median"+median);
 
 		}
 		else{
-			Packet out = create(voc+"");
+			Packet out = create(voc+":extraInfo:"+extraInfo);
 			outport.send(out);
 		}
 	}
@@ -107,4 +111,23 @@ public class MedianFilter extends Component {
 
 	}
 
+	private String getExtraInfo(String info) {
+		// TODO Auto-generated method stub
+		StringTokenizer tokenizer = new StringTokenizer(info, ":");
+		String token = "";
+		while(tokenizer.hasMoreTokens()){
+			token = tokenizer.nextToken();
+			if(token.equals("extraInfo")){
+				return tokenizer.nextToken();
+			}
+		}
+		
+		return token;
+	}
+
+	private int getValue(String info) {
+		// TODO Auto-generated method stub
+		StringTokenizer tokenizer = new StringTokenizer(info, ":");
+		return Integer.parseInt(tokenizer.nextToken());
+	}
 }

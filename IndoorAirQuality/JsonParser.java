@@ -82,6 +82,19 @@ public class JsonParser extends Component {
 //		  
 		String jstr;  
 		Packet out;
+		
+		jstr = jsonStr;
+		StringTokenizer jsonTokenizer = new StringTokenizer(jstr, ":");
+		String token;
+		String extraInfo = "";
+		while(jsonTokenizer.hasMoreTokens()){
+			token = jsonTokenizer.nextToken();
+			if(token.equals("\"extraInfo\"")){
+				extraInfo = jsonTokenizer.nextToken();
+				break;
+			}
+		}
+		
 		for(int i = 0, j = 0;i<numberOfKeys;++i){
 //			System.out.println(jsonStr);
 			jstr = jsonStr;
@@ -94,9 +107,13 @@ public class JsonParser extends Component {
 			else if(kommaIndex<ketIndex && kommaIndex!=-1)
 				jstr = jstr.substring(0, kommaIndex);
 			jstr = jstr.replaceAll("\\{", "").replaceAll("\\}", "").replaceAll("\\ ", "");
-			StringTokenizer jsonTokenizer = new StringTokenizer(jstr, "':");
+			jsonTokenizer = new StringTokenizer(jstr, "':");
 			jsonTokenizer.nextToken();
 			String result = jsonTokenizer.nextToken();
+			if(extraInfo!=""){
+				result=result+":extraInfo:"+extraInfo;
+//				System.out.println(extraInfo);
+			}
 			out = create(result);
 			outportValue[j++].send(out);
 			

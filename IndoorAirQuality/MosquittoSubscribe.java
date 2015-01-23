@@ -122,10 +122,30 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		// TODO Auto-generated method stub
 //		System.out.println(message);
+		String subtopic = parseTopic(topic);
 		String msgStr = message.toString();
-		Packet msgPacket =  create(msgStr);
+		if(subtopic!="")
+			msgStr = msgStr + ":\"extraInfo\":"+subtopic;
+		System.out.println(msgStr);
+		Packet msgPacket = create(msgStr);
 		outPort.send(msgPacket);
+		
+//		System.out.println(_topic);
 	
+	}
+
+	private String parseTopic(String topic) {
+		// TODO Auto-generated method stub
+		StringTokenizer tokenizeSubscribedTopic = new StringTokenizer(_topic, "/");
+		StringTokenizer tokenizeReceivedTopic = new StringTokenizer(topic,"/");
+		String subtopic;
+		while(tokenizeSubscribedTopic.hasMoreTokens()){
+			subtopic = tokenizeSubscribedTopic.nextToken();
+			if(subtopic.equals("#"))
+				return tokenizeReceivedTopic.nextToken();
+			tokenizeReceivedTopic.nextToken();
+		}
+		return "";
 	}
 
 }

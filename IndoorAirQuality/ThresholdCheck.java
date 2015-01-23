@@ -9,6 +9,7 @@ package IndoorAirQuality;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
 import com.jpmorrsn.fbp.engine.Component;
 import com.jpmorrsn.fbp.engine.ComponentDescription;
@@ -51,13 +52,16 @@ public class ThresholdCheck extends Component {
 		}
 		
 		ip = inportIN.receive();
-		value = Integer.parseInt((String)ip.getContent());
+		String info = (String)ip.getContent();
+		value = getValue(info);
+		String room = getRoom(info);
+//		System.out.println("Room"+room);
 		drop(ip);
 		
 		if(value >= threshold && !alreadyOverThreshold) {
 			Packet out;
 			
-			out = create("\"beep\":true,\"VOC\":"+value);
+			out = create("\"beep\":true,\"VOC\":"+value+",\"room\":\""+room+"\"");
 			outport.send(out);
 			
 			alreadyOverThreshold = true;
@@ -65,7 +69,7 @@ public class ThresholdCheck extends Component {
 		else{
 			Packet out;
 
-			out = create("\"beep\":false,\"VOC\":"+value);
+			out = create("\"beep\":false,\"VOC\":"+value+",\"room\":\""+room+"\"");
 			outport.send(out);
 		}
 		if(value < threshold && alreadyOverThreshold) {
@@ -73,6 +77,26 @@ public class ThresholdCheck extends Component {
 			
 			alreadyOverThreshold = false;
 		}
+	}
+
+	private String getRoom(String info) {
+		// TODO Auto-generated method stub
+		StringTokenizer tokenizer = new StringTokenizer(info, ":");
+		String token = "";
+		while(tokenizer.hasMoreTokens()){
+			token = tokenizer.nextToken();
+			if(token.equals("extraInfo")){
+				return tokenizer.nextToken();
+			}
+		}
+		
+		return token;
+	}
+
+	private int getValue(String info) {
+		// TODO Auto-generated method stub
+		StringTokenizer tokenizer = new StringTokenizer(info, ":");
+		return Integer.parseInt(tokenizer.nextToken());
 	}
 
 	@Override
