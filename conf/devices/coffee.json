@@ -26,6 +26,13 @@
           "content-types": [
             "application/json"
           ]
+        },
+		{
+            "type": "MQTT", 
+            "methods": [ 
+                "SUB"
+            ],
+            "content-types": ["application/json"]
         }
       ]
     }
