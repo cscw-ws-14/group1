@@ -50,6 +50,10 @@ var App = {
 	}, 
 	
 	OnAirQuality: function(data){
+		var room = window.location.hash.replace('#','');
+		if(data.room != room)
+			return;
+			
         // change led to this level
 		var led = $('#led');
 		led.css("background-image", "url(images/lvl_" + data.level + ".png)");
@@ -105,9 +109,7 @@ var App = {
 			}
 		}
 		else
-			led.html("");
-			
-		
+			led.html(""); 	
 	},
 	 
 	OnMovement: function(data){
