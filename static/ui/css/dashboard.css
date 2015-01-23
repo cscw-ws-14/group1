@@ -169,4 +169,4 @@ body {
 	margin-top:5px;
 	margin-bottom:5px;
 }
-.navbar-brand{font-size:54px;height:60px;}
+.navbar-header{font-size:54px;text-align:center;color:#FFF;margin:auto;float:none}
