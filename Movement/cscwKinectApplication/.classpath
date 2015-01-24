@@ -3,6 +3,12 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="/MT4j/mt4jLibs/tuio/libTUIO.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ashish/Desktop/MT4j.jar"/>
 	<classpathentry kind="lib" path="/MT4j/mt4jLibs/core.jar"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/whirlylib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/GlulogicMT.jar"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/jogl/opengl.jar"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/jogl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/jogl/jogl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

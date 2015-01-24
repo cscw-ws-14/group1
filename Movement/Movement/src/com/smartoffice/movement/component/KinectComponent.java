@@ -9,25 +9,31 @@ import com.jpmorrsn.fbp.engine.InPorts;
 import com.jpmorrsn.fbp.engine.InputPort;
 import com.jpmorrsn.fbp.engine.OutPort;
 import com.jpmorrsn.fbp.engine.OutPorts;
+import com.jpmorrsn.fbp.engine.OutputPort;
 import com.jpmorrsn.fbp.engine.Packet;
-import com.smartoffice.movement.library.*;
+import com.smartoffice.movement.library.OSCeleton;
+import com.smartoffice.movement.library.OSCeletonDelegate;
+//import com.smartoffice.movement.library.*;
 
 
 @ComponentDescription("Component for the Kinect Application")
 
 @InPorts({
-        @InPort(value = "MESSAGE", description = "message ", type = Boolean.class)
+	@InPort(value = "MESSAGE", description = "message ", type = Boolean.class)
 })
 
 @OutPorts({
-        @OutPort(value = "YES", optional = true),
-   
+	@OutPort(value = "VALUE", optional = true),
+
 })
-public class KinectComponent extends Component implements OSCeletonDelegate{
-	
+public class KinectComponent extends Component implements OSCeletonDelegate {
+
 	private InputPort inPort;
+	private OutputPort outPort;
 	private final String niViewerPath = "C:/Program Files (x86)/OpenNI/Samples/Bin/Release/NiViewer.exe";
 	private final String osceletonPath = "C:/OSCeleton-v1.2.1_win32 (1)/OSCeleton-v1.2.1_win32/OSCeleton.exe";
+
+	int calibratedUserId = 0;
 
 	@Override
 	protected void execute() throws Exception {
@@ -47,9 +53,9 @@ public class KinectComponent extends Component implements OSCeletonDelegate{
 			public void run() {
 				try {
 					OSCeleton client = new OSCeleton();
-					//client.setDelegate(delegate);
+					client.setDelegate(getOSCDelegate());
 					client.run();
-					
+
 				} catch (SocketException e) {
 					e.printStackTrace();
 					System.exit(1);
@@ -57,38 +63,75 @@ public class KinectComponent extends Component implements OSCeletonDelegate{
 			}
 		};
 		task.run();
-		
 	}
 
 	@Override
 	protected void openPorts() {
 		inPort = openInput("MESSAGE");
-		
+		outPort = openOutput("VALUE");
+
+	}
+
+	public OSCeletonDelegate getOSCDelegate() 
+	{
+		return this;
 	}
 
 	@Override
 	public void onNewUser(Integer userId) {
-		// TODO Auto-generated method stub
-		
+		Runnable newUser = new Runnable() {
+
+			@Override
+			public void run() {
+				if(calibratedUserId !=0)
+				{
+					return;
+				}
+				System.out.println("Wait for User Calibration...");
+
+			}
+		};
+		newUser.run();
+
 	}
 
+
 	@Override
-	public void onNewSkeleton(Integer userId) {
-		// TODO Auto-generated method stub
-		
+	public void onNewSkeleton(final Integer userId) {
+		Runnable newSkel = new Runnable() {
+			
+			@Override
+			public void run() {
+				if(calibratedUserId == 0)
+				{
+					System.out.println("Stand in calibration pose...");
+					calibratedUserId  = userId;
+				}
+				
+			}
+		};
+		newSkel.run();
+
 	}
 
 	@Override
 	public void onLostUser(Integer userId) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Lost User...");
+
 	}
 
 	@Override
 	public void onJoint(String jointName, Integer userId, Float x, Float y,
-			Float z) {
-		// TODO Auto-generated method stub
-		
+			Float z) 
+	{
+		if((!jointName.equals("l_hand"))&&(!jointName.equals("r_hand")))
+		{
+			return;
+		}
+		String result = jointName+";"+x.toString()+";"+y.toString()+";"+z.toString();
+		Packet op = create(result);
+		outPort.send(op);
+
 	}
 
 }

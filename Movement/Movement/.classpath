@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="C:/Users/Ashish/Documents/CSCW/websocket_server/websocket_component/lib/java_websocket.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ashish/Documents/CSCW/IndoorAirQuality/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/MT4j/mt4jLibs/tuio/libTUIO.jar"/>
+	<classpathentry kind="src" path="/MT4j"/>
+	<classpathentry kind="lib" path="/MT4j/mt4jLibs/core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
