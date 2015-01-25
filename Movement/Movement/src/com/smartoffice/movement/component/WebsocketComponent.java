@@ -16,42 +16,40 @@ import com.smartoffice.movement.library.WebsocketServer;
 @ComponentDescription("publish a message to the websocket server")
 
 @InPorts({
-        @InPort(value = "MESSAGE", description = "topic and message", type = String.class)
+	@InPort(value = "MESSAGE", description = "topic and message", type = String.class),
+	@InPort(value = "PORT", description = "port number",type = String.class)
 })
 public class WebsocketComponent extends Component {
 	BufferedWriter bWrite = null;
 	static String data =  new String();
 	static int count = 0;
 
-    private InputPort _messagePort;
-    private WebsocketServer _ws =  WebsocketServer.getInstance(8118);
+	private InputPort _messagePort;
+	private InputPort _numberPort;
 
-    @Override
-    protected void execute() throws Exception {
-        Packet packet = _messagePort.receive();
-        if(packet != null) {
-            String message = (String) packet.getContent();
-            drop(packet);
-            _ws.sendToAll(message);
-            count++;
-            data.concat(message + "\n");
-            System.out.println("sending: " + message);
-            if(count == 10)
-            {
-            	 File logFile = new File("Test");
 
-                 // This will output the full path where the file will be written to...
-                 System.out.println(logFile.getCanonicalPath());
+	@Override
+	protected void execute() throws Exception {
+		Packet ip = _numberPort.receive();
+		String Port = (String) ip.getContent();
+		drop(ip);
+		final WebsocketServer _ws =  WebsocketServer.getInstance(Integer.valueOf(Port));
+		Packet packet = _messagePort.receive();
+		if(packet != null) {
+			String message = (String) packet.getContent();
+			drop(packet);
+			_ws.sendToAll(message);
+			count++;
+			data.concat(message + "\n");
+			System.out.println("sending: " + message);
 
-                 bWrite = new BufferedWriter(new FileWriter(logFile));
-                 bWrite.write("Hello world!");
-            }
-        }
-    }
+		}
+	}
 
-    @Override
-    protected void openPorts() {
-        _messagePort =  openInput("MESSAGE");
-    }
+	@Override
+	protected void openPorts() {
+		_messagePort =  openInput("MESSAGE");
+		_numberPort = openInput("PORT");
+	}
 
 }

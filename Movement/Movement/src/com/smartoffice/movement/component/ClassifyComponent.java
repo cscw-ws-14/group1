@@ -1,5 +1,7 @@
 package com.smartoffice.movement.component;
 
+import java.util.Calendar;
+
 import com.jpmorrsn.fbp.engine.Component;
 import com.jpmorrsn.fbp.engine.InPort;
 import com.jpmorrsn.fbp.engine.InPorts;
@@ -13,17 +15,21 @@ import com.jpmorrsn.fbp.engine.Packet;
 	@InPort(value = "DATA", description = "gets the current value from the MQTT Receiver and maintains")
 })
 @OutPorts({
-	@OutPort(value = "MESSAGE", description = "sends a message to the node handling Kinect", type = String.class, optional = true)
+	@OutPort(value = "MESSAGE", description = "sends a message to the node handling Kinect", type = String.class, optional = true),
+	@OutPort(value = "TIME", description = "sends time idle", type = String.class, optional = true)
 })
 
 public class ClassifyComponent extends Component {
 	
 	private InputPort inPort;
-	private OutputPort outPort;
+	private OutputPort outPort,timePort;
 	
 	private static int trueCount = 0;
 	private static int falseCount = 0;
 	private static int totalCount = 0;
+	private static long minIdle;
+	private static long startTime;
+	private static long endTime;
 
 	@Override
 	protected void execute() throws Exception {
@@ -37,11 +43,16 @@ public class ClassifyComponent extends Component {
 		{
 			trueCount++;
 			totalCount++;
+			reset();
 		}
 		else
 		{
 			falseCount++;
 			totalCount++;
+			endTime = Calendar.getInstance().getTimeInMillis();
+			minIdle = (endTime-startTime)/1000;
+			Packet op = create(String.valueOf(minIdle));
+			timePort.send(op);
 		}
 		if(totalCount == 10)
 		{
@@ -67,10 +78,16 @@ public class ClassifyComponent extends Component {
 
 	}
 	
+	private void reset()
+	{
+		startTime = Calendar.getInstance().getTimeInMillis();
+	}
+	
 	@Override
 	protected void openPorts() {
 		inPort = openInput("DATA");
 		outPort = openOutput("MESSAGE");
+		timePort = openOutput("TIME");
 
 	}
 
