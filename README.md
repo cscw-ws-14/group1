@@ -21,3 +21,42 @@ To run the coffee DB server,
 $ cd coffee
 
 $ sudo node coffee_red.js
+
+
+## demo to do 
+pi#cscw-bplus-04 username:pi password cscw2014
+IP: 
+mosquitto: 1883
+device-gateway: 8080
+
+cd ~
+mkdir ridho
+git clone https://github.com/cscw-ws-14/group1.git
+cd patchwork-toolkit-v0.2_linux_arm
+mkdir agents
+cp ~/ridho/group1/agents/outside_temperature.py agents
+cp ~/ridho/group1/conf/devices/outside_temperature.json conf/devices
+
+./device-gateway
+
+pi# number 1 or 2
+change mosquitto pub IP and port in 
+cd ~/patchwork-toolkit-v0.2_linux_arm
+nano conf/device-gateway.json
+
+
+laptop#shekoufe
+air quality flow
+change mosquitto subs IP in java fbp
+
+laptop#dian
+node red: sqlite and coffee flow
+change CoffeeFlow's mosquitto subs IP in node red
+
+laptop#ashish
+movement flow, UI 
+change mosquitto subs IP in java fbp
+
+laptop#ridho UI
+change ws IP 
+
