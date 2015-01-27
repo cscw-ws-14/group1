@@ -47,7 +47,8 @@ nano conf/device-gateway.json
 
 laptop#shekoufe
 air quality flow
-change mosquitto subs IP in java fbp
+change mosquitto subs IP in java fbp src
+mosquittosubscribe.java
 
 laptop#dian
 node red: sqlite and coffee flow
@@ -56,6 +57,7 @@ change CoffeeFlow's mosquitto subs IP in node red
 laptop#ashish
 movement flow, UI 
 change mosquitto subs IP in java fbp
+mosquittosubscribe.java
 
 laptop#ridho UI
 change ws IP 

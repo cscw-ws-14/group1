@@ -1,13 +1,12 @@
 {
-  "id": "le",
+  "id": "cscw-bplus-04",
   "description": "Example Gateway",
   "dnssdEnabled": false,
   "publicAddr": "localhost",
   "staticDir": "./static",
   "catalog": [
     {
-      "discover": false,
-      "endpoint": "http://localhost:8080/dc"
+      "discover": true
     }
   ],
   "http": {
@@ -20,7 +19,7 @@
     },
     "MQTT": {
       "url": "tcp://127.0.0.1:1883",
-      "prefix": "/le"
+      "prefix": "/cscw-bplus-04"
     }
   }
 }
