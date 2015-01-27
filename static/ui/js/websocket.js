@@ -1,15 +1,24 @@
 
 var App = {
-	url: "ws://localhost:8887/",
-	channel: "", 
-	ws: null,
-	UserId: 1,
-	room_id: "R1",
-  
-	//{timestamp:1, beep:true, level:1, door:true, window:true} 
-    
+	url: [
+		"ws://localhost:8887/",
+		"ws://localhost:8888/",
+		"ws://localhost:8889/",
+	], 
+	ws: [],
+	user: 1,
+	room: "R1",
+  	channel: "",
+	    
     Construct: function(){
-         
+        var hashtag = window.location.hash.replace('#','');
+		try{
+			var objHash = JSON.parse(hashtag);
+			App.room = objHash.room;
+			App.user = objHash.user; 
+		} catch(ex){
+			console.log('hash param error. correct:{"room":"R1","user":1}')
+		}
     }, 
 	
 	WebSocketBrowserCheck: function(){
@@ -20,10 +29,14 @@ var App = {
 	},
 	
 	OpenWebSocket: function(){
-		this.ws = new WebSocket( this.url + this.channel );
-		this.ws.onopen  = this.OnOpen;
-		this.ws.onclose = this.OnClose;
-		this.ws.onmessage = this.OnMessage;
+		for(var i in this.url){
+			var wso = new WebSocket( this.url[i] + this.channel );
+			wso.onopen  = this.OnOpen;
+			wso.onclose = this.OnClose;
+			wso.onmessage = this.OnMessage;	
+			
+			this.ws.push(wso);
+		}
 	},
 	
 	OnOpen: function(){
@@ -33,6 +46,8 @@ var App = {
 	OnMessage: function(event){
         if(event.data == "" || typeof(event.data) == "undefined")
             return;
+		
+		console.log("msg: %s", event.data);
 
         var data = JSON.parse(event.data);
   
@@ -49,9 +64,8 @@ var App = {
         }
 	}, 
 	
-	OnAirQuality: function(data){
-		var room = window.location.hash.replace('#','');
-		if(data.room != room)
+	OnAirQuality: function(data){ 
+		if(data.room != App.room)
 			return;
 			
         // change led to this level
@@ -91,6 +105,11 @@ var App = {
 	OnCoffee: function(data){
         // change bg to this coffee total
 		var led = $('#coffee');
+		if(data.UserId != App.user){
+			console.log("no user id")
+			return;
+		}
+		
 		if(data.Intake <= 4)
 			led.css("background-image", "url(images/coffee_" + data.Intake + ".png)"); 
 		else 
@@ -98,14 +117,14 @@ var App = {
 			led.css("background-image", "url(images/coffee_4.png)"); 
 		}
 		
-		if(data.UserId != App.UserId)
-			return;
 			
 		if(data.Intake){
 			led.html(data.Intake + "X");
 			
 			if(data.Intake > 4){
 				led.css("color", "#FF0000");
+			} else {
+				led.css("color", "#000");
 			}
 		}
 		else
