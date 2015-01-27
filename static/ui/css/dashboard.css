@@ -161,6 +161,19 @@ body {
 	float:left;
 	font-size:25px;
 	padding-top:20px;
+	top:200px;
+}
+.idle{
+	position: relative;
+	width: 100px;
+	height: 180px;
+	background-image: url(../images/idle.png);  
+	background-repeat:no-repeat;
+	float:left;
+	font-size:20px;
+	padding-top:170px; 
+	top: 180px; 
+	left: 20px;
 }
 .sound_option{
 	position:relative;

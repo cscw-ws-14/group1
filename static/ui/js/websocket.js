@@ -1,9 +1,10 @@
 
 var App = {
 	url: [
-		"ws://localhost:8887/",
-		"ws://localhost:8888/",
-		"ws://localhost:8889/",
+		"ws://localhost:8887/", // air quality
+		"ws://localhost:8888/", // coffee
+		"ws://localhost:7220/", // idle
+		"ws://localhost:8118/", // kinect
 	], 
 	ws: [],
 	user: 1,
@@ -60,6 +61,9 @@ var App = {
 			break;
 		case 'movement':
 			App.OnMovement(data);
+			break;
+		case 'idle':
+			App.OnIdle(data);
 			break;
         }
 	}, 
@@ -135,6 +139,11 @@ var App = {
 		// display the notification
 		$('#movement #notification').html("No movement detected for 2 hours."); 
 		$('#movement #dialog').css("display", "block"); 
+	},
+	
+	OnIdle: function(data){
+		// display the notification
+		$('#idle').html("" + data.TimeIdle + " sec. Idle"); 		
 	},
 	
 	PlaySound: function(){ 
