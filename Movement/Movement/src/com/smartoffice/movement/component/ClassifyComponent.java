@@ -51,7 +51,7 @@ public class ClassifyComponent extends Component {
 			totalCount++;
 			endTime = Calendar.getInstance().getTimeInMillis();
 			minIdle = (endTime-startTime)/1000;
-			Packet op = create(String.valueOf(minIdle));
+			Packet op = create("TimeIdle:" + String.valueOf(minIdle));
 			timePort.send(op);
 		}
 		if(totalCount == 10)

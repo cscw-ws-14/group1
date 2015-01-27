@@ -21,7 +21,7 @@ public class MovementControl extends Network{
 		initialize("/le/Motion/Pir", component("Receiver"), port("TOPIC"));
 		initialize("bv",component("Parser"),port("KEY"));
 		initialize("jointName;x;y;z",component("JSONConvert"),port("KEY"));
-		initialize("Time Idle",component("TimeJSON"), port("KEY"));
+		initialize("Type:idle",component("TimeJSON"), port("KEY"));
 		initialize("8118",component("Publisher"), port("PORT"));
 		initialize("7220",component("TimeWS"), port("PORT"));
 		
