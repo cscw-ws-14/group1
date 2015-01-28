@@ -1,5 +1,6 @@
 package IndoorAirQuality;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.jpmorrsn.fbp.engine.*;
@@ -22,29 +23,33 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 @ComponentDescription("Subscribes to a message to the mosquitto server.")
 
 @InPorts({
-    @InPort(value = "CLIENTID", description = "client id of the client, can put random string here", type = String.class, optional = true),
-    @InPort(value = "TOPIC", description = "topic", type = String.class)
+    @InPort(value = "CLIENTID", description = "client id", type = String.class, optional = true),
+    @InPort(value = "TOPIC", description = "topic", type = String.class),
+    @InPort(value="FILTER", arrayPort = true, optional = true),
+    @InPort(value="EXTRAINFO", optional = true)
 })
 @OutPorts({ @OutPort(value = "MESSAGE") })
 public class MosquittoSubscribe extends Component implements MqttCallback{
 
     private InputPort clientId;
-
-    private InputPort inportTopic;
+    private InputPort[] inportFilter;
+    
+    private InputPort inportTopic, inportExtra;
     private OutputPort outPort;
 
-//    private OutputPort outport;
+
 
     // some default values, will be overridden later
     private String _topic        = "heartbeat";
-//    private String _content      = "beat";
     private String _clientId     = "client_id_";
 
     // some values that is not necessary to change
-//    private int qos             = 2;
     private String broker       = "tcp://localhost:1883";
     
     private int stayAliveTime = 10000;
+    private int filterSize = 0;
+    private ArrayList<String> filter = new ArrayList<String>();
+    private String extraInfoTopic = null;
     @Override
     protected void execute() throws Exception {
 
@@ -57,6 +62,21 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
         	_topic = (String) pT.getContent();
             drop(pT);
             
+            filterSize = inportFilter.length;
+            
+            
+            Packet p;
+            for(int i = 0 ; i<filterSize;++i){
+            	p = inportFilter[i].receive();
+            	filter.add((String)p.getContent());
+            	drop(p);
+            }
+            
+            p = inportExtra.receive();
+            if(p!=null){
+            	extraInfoTopic = (String)p.getContent();
+            	drop(p);
+            }
             try {
                 MemoryPersistence persistence = new MemoryPersistence();
 
@@ -95,6 +115,8 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
         clientId = openInput("CLIENTID");
         inportTopic =  openInput("TOPIC");
         outPort = openOutput("MESSAGE");
+        inportFilter = openInputArray("FILTER");
+        inportExtra = openInput("EXTRAINFO");
     }
 
     public Object fillInput(InputPort inPort, Object defaultValue){
@@ -121,31 +143,58 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
 
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		// TODO Auto-generated method stub
-//		System.out.println(message);
-		String subtopic = parseTopic(topic);
-		String msgStr = message.toString();
-		if(subtopic!="")
-			msgStr = msgStr + ":\"extraInfo\":"+subtopic;
-		System.out.println(msgStr);
-		Packet msgPacket = create(msgStr);
-		outPort.send(msgPacket);
-		
-//		System.out.println(_topic);
+
+		if(relatedTopic(topic)){
+			
+			String msgStr = message.toString();
+			if(extraInfoTopic!=null){
+				String extraInfo = parseTopic(topic);
+				if(extraInfo!=null)
+					msgStr = msgStr + ":\"extraInfo\":"+extraInfo;
+			}
+			
+			Packet msgPacket = create(msgStr);
+			outPort.send(msgPacket);
+		}
 	
+	}
+
+	private boolean relatedTopic(String topic) {
+		// TODO Auto-generated method stub
+			
+		String subTopic;
+		for(int i = 0 ; i < filter.size();++i ){
+			subTopic = filter.get(i);
+			if(!subTopicExistsInTopic(subTopic, topic))
+				return false;
+		}
+		return true;
+	}
+
+	private boolean subTopicExistsInTopic(String subTopic, String topic) {
+		// TODO Auto-generated method stub
+		StringTokenizer topicTokenizer = new StringTokenizer(topic,"/");
+
+		String topicToken;
+		while(topicTokenizer.hasMoreTokens()){
+			topicToken = topicTokenizer.nextToken();
+			if(subTopic.equals(topicToken))
+				return true;
+		}
+		return false;
 	}
 
 	private String parseTopic(String topic) {
 		// TODO Auto-generated method stub
-		StringTokenizer tokenizeSubscribedTopic = new StringTokenizer(_topic, "/");
+	
 		StringTokenizer tokenizeReceivedTopic = new StringTokenizer(topic,"/");
 		String subtopic;
-		while(tokenizeSubscribedTopic.hasMoreTokens()){
-			subtopic = tokenizeSubscribedTopic.nextToken();
-			if(subtopic.equals("#"))
-				return tokenizeReceivedTopic.nextToken();
-			tokenizeReceivedTopic.nextToken();
+		while(tokenizeReceivedTopic.hasMoreTokens()){
+			subtopic = tokenizeReceivedTopic.nextToken();
+			if(subtopic.contains(extraInfoTopic))
+				return subtopic;
 		}
-		return "";
+		return null;
 	}
 
 }
