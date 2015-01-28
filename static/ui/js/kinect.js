@@ -1,22 +1,25 @@
-
 var App = {
 	url: [ 
 		"ws://localhost:8118/", // kinect
 	], 
-	ws: [],
-	user: 1,
-	room: "R1",
-  	channel: "",
+	ws: [], 
+	window_width:1280,
+	window_height:800,
+	first: true,
+	channel: "",
+	score: 0,
 	    
-    Construct: function(){
-        var hashtag = window.location.hash.replace('#','');
-		try{
-			var objHash = JSON.parse(hashtag);
-			App.room = objHash.room;
-			App.user = objHash.user; 
-		} catch(ex){
-			console.log('hash param error. correct:{"room":"R1","user":1}')
-		}
+    Construct: function(){  
+		App.window_height = $( window ).height() ;
+		App.window_width = $( window ).width() ;
+		
+		$( window ).resize(function() {
+		  	App.window_height = $( window ).height() ;
+			App.window_width = $( window ).width() ;
+			console.log($( window ).height());
+			console.log($( window ).width());
+		});
+		
     }, 
 	
 	WebSocketBrowserCheck: function(){
@@ -33,7 +36,7 @@ var App = {
 			wso.onclose = this.OnClose;
 			wso.onmessage = this.OnMessage;	
 			
-			this.ws.push(wso);
+			this.ws.push(wso); 
 		}
 	},
 	
@@ -43,114 +46,91 @@ var App = {
 	
 	OnMessage: function(event){
         if(event.data == "" || typeof(event.data) == "undefined")
-            return;
-		
-		console.log("msg: %s", event.data);
+            return; 
 
         var data = JSON.parse(event.data);
   
         switch(data.type){
-		case 'airquality':
-			App.OnAirQuality(data);
-			break;
-		case 'coffee':
-			App.OnCoffee(data);
-			break;
-		case 'movement':
-			App.OnMovement(data);
-			break;
-		case 'idle':
-			App.OnIdle(data);
+		case 'kinect':
+		default:
+			App.FirstMethod();
+			App.OnKinect(data);
 			break;
         }
 	}, 
-	
-	OnAirQuality: function(data){ 
-		if(data.room != App.room)
-			return;
+	FirstMethod: function(){
+		if(!App.first)
+			return
 			
-        // change led to this level
-		var led = $('#led');
-		led.css("background-image", "url(images/lvl_" + data.level + ".png)");
-		 
-		// play beep
-		if(data.beep){
-			App.PlaySound(); 
-			$('#speaker').css("background-image", "url(images/speaker_active.png)");
-			
-			// set time out on the next 1 second to turn the image off
-			window.setTimeout(function(){
-				$('#speaker').css("background-image", "url(images/speaker_deactive.png)");
-			}, 1000);
-		}
-			
-		// change door css images
-		var door = $('#door');
-		if(data.door){
-			door.css("background-image", "url(images/door_active.gif)");
-		}
-		else{
-			door.css("background-image", "url(images/door_deactive.gif)");
-		}
+		if(App.first)
+			App.first = false;
 		
-		// change window css images
-		var window_ = $('#window');
-		if(data.window){
-			window_.css("background-image", "url(images/window_active.gif)");
-		}
-		else{
-			window_.css("background-image", "url(images/window_deactive.gif)"); 
-		}
+		// hide the calibrating text
+		$('#calibrated').hide()
+			
+		// show the target box
+		App.RandomizeTarget();
 	},
 	
-	OnCoffee: function(data){
-        // change bg to this coffee total
-		var led = $('#coffee');
-		if(data.UserId != App.user){
-			console.log("no user id")
-			return;
+	RandomizeTarget: function(jointName){
+		var x = Math.floor((Math.random() * (App.window_width -240)));
+		var y = Math.floor((Math.random() * (App.window_height +77)));
+ 
+		if(jointName){
+			$('#target_' + jointName).css('left', x + "px")
+			$('#target_' + jointName).css('top', y + "px") 
+			return	
 		}
 		
-		if(data.Intake <= 4)
-			led.css("background-image", "url(images/coffee_" + data.Intake + ".png)"); 
-		else 
+		var x2 = Math.floor((Math.random() * (App.window_width -240)));
+		var y2 = Math.floor((Math.random() * (App.window_height +77)));
+				
+		$('#target_l_hand').css('left', x + "px")
+		$('#target_l_hand').css('top', y + "px") 
+		
+		$('#target_r_hand').css('left', x2 + "px")
+		$('#target_r_hand').css('top', y2 + "px") 
+	},
+	
+	HideTarget: function(){ 
+		$('#target_r_hand').css('left', "-300px")  
+		$('#target_l_hand').css('left', "-300px") 
+	},
+	
+	OnKinect: function(data){ 
+		var x = Math.floor(data.x * App.window_width);
+		var y = Math.floor(data.y * App.window_height);
+		$('#' + data.jointName).css("top", y + "px");
+		$('#' + data.jointName).css("left", x + "px");
+		
+		App.HasReachTarget(data);
+	},
+	
+	HasReachTarget: function(data){
+		var x = $('#' + data.jointName).position().left;
+		var y = $('#' + data.jointName).position().top;
+		
+		// check bound
+		var box = $('#target_' + data.jointName)
+		var boxPos = box.position();
+		if( x > boxPos.left && x < boxPos.left + box.width() &&
+			y > boxPos.top && y < boxPos.top + box.height()
+		)
 		{
-			led.css("background-image", "url(images/coffee_4.png)"); 
-		}
-		
-			
-		if(data.Intake){
-			led.html(data.Intake + "X");
-			
-			if(data.Intake > 4){
-				led.css("color", "#FF0000");
-			} else {
-				led.css("color", "#000");
-			}
-		}
-		else
-			led.html(""); 	
-	},
-	 
-	OnMovement: function(data){
-		// display the notification
-		$('#movement #notification').html("No movement detected for 2 hours."); 
-		$('#movement #dialog').css("display", "block"); 
-	},
-	
-	OnIdle: function(data){
-		// display the notification
-		$('#idle').html("" + data.TimeIdle + " sec. Idle"); 		
-	},
-	
-	PlaySound: function(){ 
-		var audio = new Audio('images/beep.mp3');
-		var sound_opt = $('#sound_option').is(':checked');
-		if(sound_opt){
-			audio.play(); 
+			console.log(data.jointName + " is in the box");
+			//re positino target
+			App.RandomizeTarget(data.jointName);
+			// give points
+			App.GiveScore();
 		}
 	},
 	
+	GiveScore: function(){
+		console.log("scored");
+		App.score += 10;
+		$('#score').html("Score: " + App.score + " Pts.")
+	},
+	   
 	OnClose: function(){
 		console.log("disconnected to server");		
 	},
@@ -165,4 +145,9 @@ var App = {
 		alert("running kinect app")
 	}
 }
- 
+/*
+$('#target_r_hand').css('left', '600px') ;
+$('#target_r_hand').css('top', '400px')  ;
+$('#target_l_hand').css('left', '850px') ;
+$('#target_l_hand').css('top', '450px')  ;
+*/
