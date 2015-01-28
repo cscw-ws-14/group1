@@ -1,12 +1,12 @@
 {
-  "name": "AirQuality",
+  "name": "AirSensor",
   "description": "air quality dummy agent",
   "meta": {"any":"key", "kind":"dummy"},
   "ttl": 30,
   "resources": [
     {
       "type": "Resource",
-      "name": "IAQ/R1", 
+      "name": "VOC", 
       "agent": {
         "type": "service",
         "dir": null,
