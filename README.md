@@ -60,5 +60,5 @@ change mosquitto subs IP in java fbp
 mosquittosubscribe.java
 
 laptop#ridho UI
-change ws IP 
-
+change ws IP  
+http://device-gateway:8080/static/ui/index.html#{"room":"R2","user":2}
