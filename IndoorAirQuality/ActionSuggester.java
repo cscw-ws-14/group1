@@ -50,12 +50,11 @@ public class ActionSuggester extends Component {
 
 		Packet ip;
 
-		if(firstTime)
-		{
-			ip = inportThreshold.receive();
+		
+		ip = inportThreshold.receive();
+		if(ip!=null){
 			threshold = Integer.parseInt((String)ip.getContent());
 			drop(ip);
-			firstTime = false;
 		}
 		
 		ip = inportIn.receive();

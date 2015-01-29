@@ -34,7 +34,7 @@ public class ThresholdCheck extends Component {
 
 	private int threshold, value;
 	
-	private boolean firstTime = true;
+	
 	
 	private boolean alreadyOverThreshold = false;
 
@@ -42,14 +42,14 @@ public class ThresholdCheck extends Component {
 	protected void execute() throws InterruptedException {
 
 		Packet ip;		
-		if(firstTime){
+	
 			
-			ip = inportThreshold.receive();
+		ip = inportThreshold.receive();
+		if(ip!=null){
 			threshold = (Integer)ip.getContent();
 			drop(ip);
-			
-			firstTime = false;
 		}
+	
 		
 		ip = inportIN.receive();
 		String info = (String)ip.getContent();
