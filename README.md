@@ -24,7 +24,7 @@ $ sudo node coffee_red.js
 
 
 ## demo to do 
-pi#cscw-bplus-04 username:pi password cscw2014
+pi#cscw-bplus-04 username:pi password -----
 IP: 
 mosquitto: 1883
 device-gateway: 8080
