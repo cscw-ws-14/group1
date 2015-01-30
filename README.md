@@ -16,7 +16,7 @@ b. git clone https://github.com/patchwork-toolkit/dashboard.git
 use browser to http://localhost:8080/static/dashboard
 
 ------
-To run the coffee DB server,
+To run the coffee-intake-APP,
 
 $ cd coffee
 
