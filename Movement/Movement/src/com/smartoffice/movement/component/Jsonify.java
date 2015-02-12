@@ -23,47 +23,54 @@ import com.jpmorrsn.fbp.engine.Packet;
 
 @ComponentDescription("Wrap the message into jason")
 @OutPorts({ @OutPort(value = "MESSAGE") })
-@InPorts({ @InPort(value = "KEY"),
-	@InPort(value = "VALUE")})
+@InPorts({ @InPort(value = "KEY", arrayPort = true),
+	@InPort(value = "VALUE", arrayPort = true)})
 public class Jsonify extends Component {
 
 	static final String copyright = " ";
 
 	private OutputPort outportMessage;
 
-	private InputPort inportKeys, inportValues;
+	private InputPort inportKeys[], inportValues[];
 
 	private String keys = new String();
-	private String[] keyList ;
+	private ArrayList<String> keyList = new ArrayList<String>() ;
 	private String values = new String();
-	private String[] valueList;
+	private ArrayList<String> valueList = new ArrayList<String>() ;
 	@Override
 	protected void execute() throws InterruptedException {
 
 		Packet ip;
 
-		ip = inportKeys.receive();
-		keys = ((String)ip.getContent());
-		drop(ip);
-		keyList = keys.split(";");
-
-		ip = inportValues.receive();
-		values = ((String)ip.getContent());
-		drop(ip);
-		valueList = values.split(";");
-
-
+		int numberOfKeys = inportKeys.length;
+		for(int i = 0;i<numberOfKeys;i++)
+		{
+			ip = inportKeys[i].receive();
+			keyList.add((String)ip.getContent());
+			drop(ip);
+		}
+			
+		int numberofValues = inportValues.length;
+		for(int i =0;i<numberofValues;i++)
+		{
+			ip = inportValues[i].receive();
+			valueList.add((String)ip.getContent());
+			drop(ip);
+		}
+		
 		String json = "{";
 		int i = 0;
 		try{
-			for(; i<keyList.length;++i){
-				json = json+keyList[i]+":"+valueList[i]+",";
+			for(; i<keyList.size();++i){
+				json = json+keyList.get(i)+":"+valueList.get(i)+",";
 			}
 		}catch(Exception e){
-			for(; i<keyList.length;++i){
-				json = json+keyList[i]+":,";
+			for(; i<keyList.size();++i){
+				json = json+keyList.get(i)+":,";
 			}
 		}
+		keyList.clear();
+		valueList.clear();
 		json = json.substring(0, json.length()-1)+"}";
 
 		Packet out;
@@ -76,8 +83,8 @@ public class Jsonify extends Component {
 	@Override
 	protected void openPorts() {
 
-		inportKeys = openInput("KEY");
-		inportValues = openInput("VALUE");
+		inportKeys = openInputArray("KEY");
+		inportValues = openInputArray("VALUE");
 
 		outportMessage = openOutput("MESSAGE");
 

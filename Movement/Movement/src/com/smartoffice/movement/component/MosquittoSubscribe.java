@@ -40,7 +40,7 @@ public class MosquittoSubscribe extends Component implements MqttCallback{
 
     // some values that is not necessary to change
 //    private int qos             = 2;
-    private String broker       = "tcp://localhost:1883";
+    private String broker       = "tcp://192.168.0.100:1883";
 
     @Override
     protected void execute() throws Exception {

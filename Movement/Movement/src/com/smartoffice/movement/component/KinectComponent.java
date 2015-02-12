@@ -23,13 +23,13 @@ import com.smartoffice.movement.library.OSCeletonDelegate;
 })
 
 @OutPorts({
-	@OutPort(value = "VALUE", optional = true),
+	@OutPort(value = "VALUE", arrayPort = true),
 
 })
 public class KinectComponent extends Component implements OSCeletonDelegate {
 
 	private InputPort inPort;
-	private OutputPort outPort;
+	private OutputPort outPort[];
 	private final String niViewerPath = "C:/Program Files (x86)/OpenNI/Samples/Bin/Release/NiViewer.exe";
 	private final String osceletonPath = "C:/OSCeleton-v1.2.1_win32 (1)/OSCeleton-v1.2.1_win32/OSCeleton.exe";
 
@@ -43,10 +43,10 @@ public class KinectComponent extends Component implements OSCeletonDelegate {
 		Boolean name = (Boolean) ip.getContent();
 		Process niProcess = Runtime.getRuntime().exec(niViewerPath);
 		System.out.println("NIViewer started");
-		Thread.sleep(10000);
+		//Thread.sleep(10000);
 		Process oscProcess = Runtime.getRuntime().exec(osceletonPath);
 		System.out.println("Osceleton started");
-		Thread.sleep(10000);
+		//Thread.sleep(10000);
 		drop(ip);
 		final Runnable task = new Runnable() {
 			@Override
@@ -68,7 +68,7 @@ public class KinectComponent extends Component implements OSCeletonDelegate {
 	@Override
 	protected void openPorts() {
 		inPort = openInput("MESSAGE");
-		outPort = openOutput("VALUE");
+		outPort = openOutputArray("VALUE");
 
 	}
 
@@ -128,9 +128,19 @@ public class KinectComponent extends Component implements OSCeletonDelegate {
 		{
 			return;
 		}
-		String result = jointName+";"+x.toString()+";"+y.toString()+";"+z.toString();
-		Packet op = create(result);
-		outPort.send(op);
+		String joint = jointName;
+		Packet op = create("\""+ joint +"\"");
+		outPort[0].send(op);
+		String xVal = x.toString();
+		Packet opx = create(xVal);
+		outPort[1].send(opx);
+		String yVal = y.toString();
+		Packet opy = create(yVal);
+		outPort[2].send(opy);
+		String zVal = z.toString();
+		Packet opz = create(zVal);
+		outPort[3].send(opz);
+		
 
 	}
 

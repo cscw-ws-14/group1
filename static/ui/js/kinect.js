@@ -1,6 +1,6 @@
 var App = {
 	url: [ 
-		"ws://localhost:8118/", // kinect
+		"ws://localhost:7220/", // kinect
 	], 
 	ws: [], 
 	window_width:1280,
