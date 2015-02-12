@@ -76,9 +76,15 @@ Contains flow of Coffee Intake Advisor Logic, and SQLite REST interface
 	d. codes under /websocket_server/websocket_component/src/*
 	  
 4. compile and run the MovementControl.java
+
+5. To run the Kinect Component, you should have a Kinect device connected and OpenNI and Osceleton running on your system.
  
 ## Codes Explanation:
-###/Movement/Movement/ 
-contain components that form the flow. each explanations are written on each file 
+###The Package Movement/Movement/src/com/smartoffice/movement 
+contains the network flow of the Physical Activity advisor application
+###The Package Movement/Movement/src/com/smartoffice/movement/components
+contains the  components used in the Physical Activity advisor flow
+###The Package Movement/Movement/src/com/smartoffice/movement/library
+contains some library code for Physical Advisor Components 
 ###/MessageBoxComponent/src
 component that can pop up a AWT message box 
