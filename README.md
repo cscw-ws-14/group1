@@ -6,16 +6,17 @@ Assuming all programs are running on localhost
 #Patchwork, NodeRed and MQTT
 1. install mosquitto, or run Mosquitto server. 
 2. run patchwork by executing: bin/device-gateway
+(the binary which is in this package is for OSX)
 3. install nodejs and node red.
-4. for running sqlite REST server flow, please install sqlite3 via npm
+4. for running sqlite REST server flow, please install sqlite3 via npm: 
 	npm install sqlite3
-4. install node-red sqlite wrapper: 
+5. install node-red sqlite wrapper: 
 	npm install node-red-node-sqlite
 
 #UI
 1. change the WebSocket URL setting in: /static/js/kinect.js and /static/js/websocket.js
 2. UI: open with your websocket enable browser and visit this url (please also include the hashtag part)
-http://localhost:8080/static/ui/index.html#{"room":"R2","user":2}
+http://localhost:8080/static/ui/index.html#{"room":"cscw-bplus-04","user":1}
 
 ## Codes Explanation:
 ###/static/ui/index.html
@@ -29,9 +30,9 @@ It is a js file that contains code that reads websocket feed of Air Quality, Cof
 1. open your favorite java IDE
 2. create a new project and import the source code inside /IndoorAirQuality
 3. add these reference to the project: 
-	a. libraries under /IndoorAirQuality/*.jar
-	b. libraries under /websocket_server/websocket_component/lib/*.jar
-	c. codes under /websocket_server/websocket_component/src/*
+	a. libraries under /IndoorAirQuality/*.jar --
+	b. libraries under /websocket_server/websocket_component/lib/*.jar --
+	c. codes under /websocket_server/websocket_component/src/* --
 
 4. compile and run the IndoorAirQuality.java
  
