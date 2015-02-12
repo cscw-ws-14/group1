@@ -1,8 +1,8 @@
 
 var App = {
 	url: [
-		"ws://192.168.0.105:8887/", // air quality
-		"ws://192.168.0.106:1881/", // coffee
+		"ws://localhost:8887/", // air quality
+		"ws://localhost:1881/", // coffee
 		"ws://localhost:7220/", // idle
 		"ws://localhost:8118/", // kinect
 	], 
