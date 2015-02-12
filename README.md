@@ -30,9 +30,11 @@ It is a js file that contains code that reads websocket feed of Air Quality, Cof
 1. open your favorite java IDE
 2. create a new project and import the source code inside /IndoorAirQuality
 3. add these reference to the project: 
-	a. libraries under /IndoorAirQuality/*.jar --
-	b. libraries under /websocket_server/websocket_component/lib/*.jar --
-	c. codes under /websocket_server/websocket_component/src/* --
+	a. libraries under /IndoorAirQuality/*.jar 
+
+	b. libraries under /websocket_server/websocket_component/lib/*.jar 
+	
+	c. codes under /websocket_server/websocket_component/src/*  
 
 4. compile and run the IndoorAirQuality.java
  
@@ -63,8 +65,11 @@ Contains flow of Coffee Intake Advisor Logic, and SQLite REST interface
 
 3. add these reference to the project:
 	a. /MessageBoxComponent/MessageBoxComponent.java
+	
 	b. libraries under /IndoorAirQuality/*.jar
+	
 	c. libraries under /websocket_server/websocket_component/lib/*.jar
+	
 	d. codes under /websocket_server/websocket_component/src/*
 	  
 4. compile and run the MovementControl.java
