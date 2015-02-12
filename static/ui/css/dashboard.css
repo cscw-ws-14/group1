@@ -123,7 +123,7 @@ body {
 
 .window{
 	position: relative;
-	width: 221px;
+	width: 245px;
 	height: 203px;
 	background-image: url(../images/window_deactive.gif);
 	float:left;

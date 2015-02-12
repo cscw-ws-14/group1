@@ -18,7 +18,7 @@ var App = {
 			App.room = objHash.room;
 			App.user = objHash.user; 
 		} catch(ex){
-			console.log('hash param error. correct:{"room":"R1","user":1}')
+			console.log('hash param error. correct:{"room":"cscw-bplus-04","user":1}')
 		}
     }, 
 	
@@ -169,3 +169,7 @@ var App = {
 	}
 }
  
+ 
+ /**
+App.OnAirQuality({"timestamp":1422530580656,"type":"airquality","beep":false,"room":"cscw-bplus-04","level":0,"door":false,"window":false})
+*/
